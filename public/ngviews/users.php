@@ -1,0 +1,1 @@
+<div id="users-handler" ng-include="dynamicTemplate"></div>

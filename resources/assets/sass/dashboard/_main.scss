@@ -1,0 +1,93 @@
+
+body {
+	overflow-x : hidden;
+	&:before {
+		content         : "";
+		display         : block;
+		position        : fixed;
+		background      : url("../img/blur-bg.jpg") center center no-repeat;
+		background-size : cover;
+		width           : 100%;
+		height          : 100%;
+	}
+}
+
+.dashboard-link {
+	background-color : transparent;
+	color            : $turquoise;
+	&:hover, &:focus {
+		background-color : transparent;
+		color            : $turquoise2 !important;
+	}
+}
+
+.wide-container {
+	width : 100%;
+}
+
+.navbar-default {
+	background-color : rgba(0, 0, 0, 0.60);
+	border           : none;
+	box-shadow       : 0 5px 10px rgba(0, 0, 0, 0.23);
+
+	.navbar-brand,
+	.navbar-nav > li > a {
+		@extend .dashboard-link;
+	}
+	.navbar-nav {
+		> .open > a {
+			@extend .dashboard-link;
+		}
+	}
+	.dropdown-menu {
+		background-color : rgba(0, 0, 0, 0.55);
+		a {
+			@extend .dashboard-link;
+		}
+	}
+}
+
+/**
+ * ==================== Aside ======================
+ * 09.06.2016
+ */
+#dashboard-sidebar {
+	position         : fixed;
+	left             : 0;
+	top              : 50px;
+	padding          : 0;
+	min-height       : 150px;
+	background-color : rgba(0, 0, 0, 0.55);
+	height           : 100%;
+	overflow-y       : auto;
+	> ul {
+		> li {
+			border-top       : 1px solid rgba(86, 86, 86, 0.46);
+			border-bottom    : 1px solid #000;
+			background-color : rgba(0, 0, 0, 0.55);
+		}
+		a {
+			padding         : 10px 15px;
+			color           : #fff;
+			text-decoration : none;
+			display         : block;
+			@include transition();
+			i {
+				color        : $turquoise2;
+				margin-right : 10px;
+			}
+			&:hover {
+				background-color : $turquoise2;
+				i {
+					color : $darkTurquose;
+				}
+			}
+			&.active {
+				background-color : $turquoise2;
+				i {
+					color : $darkTurquose;
+				}
+			}
+		}
+	}
+}
