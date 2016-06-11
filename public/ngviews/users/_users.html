@@ -1,5 +1,10 @@
+<div class="clearfix">
+	<div class="input-group col-sm-4 col-sm-offset-8">
+		<input type="text" placeholder="Search" ng-model="searchUser" class="form-control">
+	</div>
+</div>
 
-<section class="scale-fade clearfix" ng-repeat="usr in users" ng-style="{'transition-delay':'0.1s'}">
+<section class="scale-fade clearfix" ng-repeat="usr in users | filter:searchUser" ng-style="{'transition-delay':'0.1s'}">
 	<a class="userpic-sm" href="#/users/{{usr.id}}">
 		<img ng-src="{{usr.gravatarImage}}" alt="alt">
 	</a>

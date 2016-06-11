@@ -1118,6 +1118,51 @@
   -webkit-transform: perspective(300px) rotateY(0deg);
   opacity: 1; }
 
+#users-handler .userpic-sm {
+  width: 40px;
+  float: left; }
+  #users-handler .userpic-sm:hover {
+    opacity: .7; }
+
+#users-handler .userinfo {
+  padding-left: 50px; }
+
+#users-handler .userinfo-single {
+  padding-left: 210px; }
+
+#users-handler h4 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+#users-handler h3 {
+  margin-top: 0; }
+
+#users-handler .table-striped tbody > tr:nth-of-type(odd) {
+  background-color: rgba(32, 158, 145, 0.3); }
+
+#users-handler .table-striped tbody > tr > td, #users-handler .table-striped tbody > tr > th {
+  border-color: #1f4c54; }
+
+.figure-image {
+  transition: all, 0.3s;
+  float: left;
+  display: inline-block;
+  opacity: 0;
+  width: 200px;
+  height: 200px;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #00d5c7; }
+  .figure-image img {
+    display: block;
+    width: 100%;
+    height: auto; }
+  .figure-image.avatar-appear {
+    opacity: 1; }
+
+.auth-profile-links i, .auth-profile-links img {
+  margin-right: 10px; }
+
 body {
   overflow-x: hidden; }
   body:before {
@@ -1156,7 +1201,7 @@ body {
 #dashboard-sidebar {
   position: fixed;
   left: 0;
-  top: 50px;
+  top: 60px;
   padding: 0;
   min-height: 150px;
   background-color: rgba(0, 0, 0, 0.55);
@@ -1184,38 +1229,32 @@ body {
       #dashboard-sidebar > ul a.active i {
         color: #265d67; }
 
-.section-item, .dashboard-section, #users-handler > section {
+.section-item, #users-handler > section, .dashboard-section {
   color: #fff;
   padding: 10px;
   margin-bottom: 10px;
   border-top: 1px solid rgba(32, 158, 145, 0.5);
   background-color: rgba(38, 93, 103, 0.6);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.26); }
-  .section-item a, .dashboard-section a, #users-handler > section a {
+  .section-item a, #users-handler > section a, .dashboard-section a {
     color: #00d5c7; }
-    .section-item a:hover, .dashboard-section a:hover, #users-handler > section a:hover {
+    .section-item a:hover, #users-handler > section a:hover, .dashboard-section a:hover {
       color: #02CEFF; }
 
-#users-handler .userpic-sm {
-  width: 40px;
-  float: left; }
-  #users-handler .userpic-sm:hover {
-    opacity: .7; }
-
-#users-handler .userinfo {
-  padding-left: 40px; }
-
-#users-handler h4 {
-  margin-top: 0;
-  margin-bottom: 0; }
-
-.figure-image {
-  transition: all, 0.2s;
-  min-height: 30px;
-  float: left;
-  display: inline-block;
-  opacity: 0; }
-  .figure-image.avatar-appear {
-    opacity: 1; }
+.input-group {
+  margin-bottom: 10px; }
+  .input-group ::-webkit-input-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group ::-moz-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group :-ms-input-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group :-moz-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group .form-control {
+    background-color: rgba(32, 158, 145, 0.3);
+    border-color: #1f4c54;
+    border-radius: 0;
+    color: #fff; }
 
 /*# sourceMappingURL=dashboard.css.map */

@@ -9,7 +9,6 @@
 
 		$scope.dynamicTemplate = 'ngviews/users/_users.html';
 
-
 		if ('user_id' in $routeParams) {
 			/**
 			 * ==================== Single user ======================
@@ -19,9 +18,20 @@
 			$http.get('api/users/' + $routeParams.user_id)
 				.success(function(user) {
 					$scope.user = user;
-					ServiceHelpers.getGravatar(user.email).then(function(data) {
-						user.gravatarImage = data;
+					user.meta.forEach(function(mt){
+						if(mt.meta_key === 'role') {
+							user.role = mt.meta_value;
+						}
 					});
+
+					// Set Avatar
+					var argues = JSON.stringify({ email: user.email, size: 200});
+					ServiceHelpers.avatarUrl()
+						.get({ helper: 'user_avatar', argues: argues },
+							function(data) {
+								user.gravatarImage = data.avatar_uri;
+							});
+
 				})
 				.error(function() {$scope.user = false;});
 		} else {
@@ -38,9 +48,14 @@
 								index.role = mt.meta_value;
 							}
 						});
-						ServiceHelpers.getGravatar(index.email).then(function(data){
-							index.gravatarImage = data;
-						});
+
+						// Set avatar
+						var argues = JSON.stringify({ email: index.email, size: 40});
+						ServiceHelpers.avatarUrl()
+							.get({ helper: 'user_avatar', argues: argues },
+								function(data) {
+									index.gravatarImage = data.avatar_uri;
+								});
 
 					})
 				})

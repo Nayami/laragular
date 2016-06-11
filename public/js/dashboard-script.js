@@ -53,19 +53,12 @@
 	angular.module('dashboardModule')
 		.factory('ServiceHelpers', ServiceHelpers);
 
-	ServiceHelpers.$inject = ['$resource', '$http'];
-	function ServiceHelpers($resource, $http) {
+	ServiceHelpers.$inject = ['$resource', '$http', '$location'];
+	function ServiceHelpers($resource, $http, $location) {
 		return {
-			getGravatar: function(email) {
-				return $http({
-					method: 'GET',
-					url   : 'api/helpers/get_gravatar/' + email
-				}).then(function(response) {
-					return response.data;
-				}, function(error) {
-					return error;
-				});
-			},
+			avatarUrl : function() {
+				return $resource("api/data/:helper/:argues",{ helper: '@helper', argues: '@argues' });
+			}
 
 		};
 	}
@@ -82,7 +75,6 @@
 
 		$scope.dynamicTemplate = 'ngviews/users/_users.html';
 
-
 		if ('user_id' in $routeParams) {
 			/**
 			 * ==================== Single user ======================
@@ -92,9 +84,20 @@
 			$http.get('api/users/' + $routeParams.user_id)
 				.success(function(user) {
 					$scope.user = user;
-					ServiceHelpers.getGravatar(user.email).then(function(data) {
-						user.gravatarImage = data;
+					user.meta.forEach(function(mt){
+						if(mt.meta_key === 'role') {
+							user.role = mt.meta_value;
+						}
 					});
+
+					// Set Avatar
+					var argues = JSON.stringify({ email: user.email, size: 200});
+					ServiceHelpers.avatarUrl()
+						.get({ helper: 'user_avatar', argues: argues },
+							function(data) {
+								user.gravatarImage = data.avatar_uri;
+							});
+
 				})
 				.error(function() {$scope.user = false;});
 		} else {
@@ -111,9 +114,14 @@
 								index.role = mt.meta_value;
 							}
 						});
-						ServiceHelpers.getGravatar(index.email).then(function(data){
-							index.gravatarImage = data;
-						});
+
+						// Set avatar
+						var argues = JSON.stringify({ email: index.email, size: 40});
+						ServiceHelpers.avatarUrl()
+							.get({ helper: 'user_avatar', argues: argues },
+								function(data) {
+									index.gravatarImage = data.avatar_uri;
+								});
 
 					})
 				})

@@ -36,7 +36,7 @@
       </ul>
 
       <!-- Right Side Of Navbar -->
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right auth-profile-links">
         <!-- Authentication Links -->
         @if (Auth::guest())
           <li><a href="{{ url('/login') }}">Login</a></li>
@@ -44,10 +44,12 @@
         @else
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <img src="{{get_gravatar(Auth::user()->email, 30)}}" alt="">
               {{ Auth::user()->name }} <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu" role="menu">
+              <li><a href="#/users/{{ Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>My Profile</a></li>
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>

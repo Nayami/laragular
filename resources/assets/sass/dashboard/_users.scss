@@ -1,0 +1,63 @@
+#users-handler {
+	> section {
+		@extend .section-item;
+	}
+	.userpic-sm {
+		width : 40px;
+		float : left;
+		&:hover {
+			opacity : .7;
+		}
+	}
+	.userinfo {
+		padding-left : 50px;
+	}
+	.userinfo-single {
+		padding-left : 210px;
+	}
+	h4 {
+		margin-top    : 0;
+		margin-bottom : 0;
+	}
+	h3 {
+		margin-top : 0;
+	}
+	.table-striped {
+		tbody {
+			>tr {
+				&:nth-of-type(odd) {
+					background-color: transparentize($turquoise2, .7);
+				}
+				>td, > th {
+					border-color: darken($darkTurquose, 5%);
+				}
+			}
+		}
+	}
+}
+
+.figure-image {
+	@include transition();
+	float        : left;
+	display      : inline-block;
+	opacity      : 0;
+	width    : 200px;
+	height   : 200px;
+	padding      : 5px;
+	margin-right : 10px;
+	border : 1px solid $turquoise;
+	img {
+		display: block;
+		width : 100%;
+		height : auto;
+	}
+	&.avatar-appear {
+		opacity : 1;
+	}
+}
+
+.auth-profile-links {
+	i, img {
+		margin-right : 10px;
+	}
+}

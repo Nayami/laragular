@@ -11,7 +11,6 @@ Route::get( '/dashboard', 'DashboardController@index' );
 
 
 
-
 Route::group( [ 'middleware' => 'auth' ], function () {
 
 	Route::get( 'api/users/{id?}', function ( $id = null ) {
@@ -22,8 +21,9 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 		return \App\User::with( 'meta' )->get();
 	} );
 
-	Route::get( 'api/helpers/{helper}/{param?}', function ( $helper, $param = null ) {
-		return $helper( $param );
-	} );
+	Route::get( 'api/data/{helper}/{argues?}',
+		function ( $helper, $argues ) {
+			return $helper($argues);
+		} );
 
 } );

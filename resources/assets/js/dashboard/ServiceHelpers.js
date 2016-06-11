@@ -4,19 +4,12 @@
 	angular.module('dashboardModule')
 		.factory('ServiceHelpers', ServiceHelpers);
 
-	ServiceHelpers.$inject = ['$resource', '$http'];
-	function ServiceHelpers($resource, $http) {
+	ServiceHelpers.$inject = ['$resource', '$http', '$location'];
+	function ServiceHelpers($resource, $http, $location) {
 		return {
-			getGravatar: function(email) {
-				return $http({
-					method: 'GET',
-					url   : 'api/helpers/get_gravatar/' + email
-				}).then(function(response) {
-					return response.data;
-				}, function(error) {
-					return error;
-				});
-			},
+			avatarUrl : function() {
+				return $resource("api/data/:helper/:argues",{ helper: '@helper', argues: '@argues' });
+			}
 
 		};
 	}
