@@ -6,5 +6,6 @@
     <div class="dashboard-container-info col-xs-10 col-xs-offset-2">
       <div data-ng-view></div>
     </div>
+
   </div>
 @endsection

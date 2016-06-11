@@ -1124,7 +1124,7 @@ body {
     content: "";
     display: block;
     position: fixed;
-    background: url("../img/blur-bg.jpg") center center no-repeat;
+    background: url("../img/aa-blur.jpg") center center no-repeat;
     background-size: cover;
     width: 100%;
     height: 100%; }
@@ -1183,5 +1183,39 @@ body {
       background-color: #209e91; }
       #dashboard-sidebar > ul a.active i {
         color: #265d67; }
+
+.section-item, .dashboard-section, #users-handler > section {
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-top: 1px solid rgba(32, 158, 145, 0.5);
+  background-color: rgba(38, 93, 103, 0.6);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.26); }
+  .section-item a, .dashboard-section a, #users-handler > section a {
+    color: #00d5c7; }
+    .section-item a:hover, .dashboard-section a:hover, #users-handler > section a:hover {
+      color: #02CEFF; }
+
+#users-handler .userpic-sm {
+  width: 40px;
+  float: left; }
+  #users-handler .userpic-sm:hover {
+    opacity: .7; }
+
+#users-handler .userinfo {
+  padding-left: 40px; }
+
+#users-handler h4 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.figure-image {
+  transition: all, 0.2s;
+  min-height: 30px;
+  float: left;
+  display: inline-block;
+  opacity: 0; }
+  .figure-image.avatar-appear {
+    opacity: 1; }
 
 /*# sourceMappingURL=dashboard.css.map */

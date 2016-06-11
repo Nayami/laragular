@@ -1,0 +1,10 @@
+
+<section class="scale-fade clearfix" ng-repeat="usr in users" ng-style="{'transition-delay':'0.1s'}">
+	<a class="userpic-sm" href="#/users/{{usr.id}}">
+		<img ng-src="{{usr.gravatarImage}}" alt="alt">
+	</a>
+	<div class="userinfo">
+		<h4><a href="#/users/{{usr.id}}">#{{usr.id}} {{usr.name}} | {{usr.email}}</a></h4>
+		{{usr.role}}
+	</div>
+</section>

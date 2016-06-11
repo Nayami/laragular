@@ -17,11 +17,11 @@
 
 		$routeProvider
 			.when('/', {
-				templateUrl: 'ngviews/dashboard.php',
+				templateUrl: 'ngviews/dashboard.html',
 				controller : 'DashboardController'
 			})
 			.when('/users/:user_id?', {
-				templateUrl: 'ngviews/users.php',
+				templateUrl: 'ngviews/users.html',
 				controller : 'UsersController'
 			})
 			.otherwise({

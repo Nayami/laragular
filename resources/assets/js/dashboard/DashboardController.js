@@ -6,7 +6,11 @@
 
 	DashboardController.$inject = ['$scope', '$http'];
 	function DashboardController($scope, $http) {
+		$scope.settings = false;
 
+		//$http.get('api/settings')
+		//	.success(function(settings) {$scope.settings = true;})
+		//	.error(function() {$scope.user = false;});
 	}
 
 })();

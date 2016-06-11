@@ -62,6 +62,7 @@ elixir(function(mix) {
 		.scripts([
 			'dashboard/module.js',
 			'dashboard/DashboardController.js',
+			'dashboard/ServiceHelpers.js',
 			'dashboard/UsersController.js',
 			'dashboard/AsideController.js',
 			'dashboard-script.js'

@@ -5,7 +5,8 @@ body {
 		content         : "";
 		display         : block;
 		position        : fixed;
-		background      : url("../img/blur-bg.jpg") center center no-repeat;
+		//background      : url("../img/blur-bg.jpg") center center no-repeat;
+		background      : url("../img/aa-blur.jpg") center center no-repeat;
 		background-size : cover;
 		width           : 100%;
 		height          : 100%;
@@ -89,5 +90,53 @@ body {
 				}
 			}
 		}
+	}
+}
+
+.section-item {
+	color            : #fff;
+	padding          : 10px;
+	margin-bottom    : 10px;
+	border-top       : 1px solid transparentize($turquoise2, .5);
+	background-color : transparentize($darkTurquose, .4);
+	box-shadow       : 0 5px 10px rgba(0, 0, 0, 0.26);
+	a {
+		color : $turquoise;
+		&:hover {
+			color : $azure;
+		}
+	}
+}
+.dashboard-section {
+	@extend .section-item;
+}
+#users-handler {
+	> section {
+		@extend .section-item;
+	}
+	.userpic-sm {
+		width : 40px;
+		float : left;
+		&:hover{
+			opacity : .7;
+		}
+	}
+	.userinfo {
+		padding-left : 40px;
+	}
+	h4 {
+		margin-top : 0;
+		margin-bottom : 0;
+	}
+}
+
+.figure-image {
+	@include transition(.2s);
+	min-height : 30px;
+	float : left;
+	display : inline-block;
+	opacity : 0;
+	&.avatar-appear {
+		opacity : 1;
 	}
 }

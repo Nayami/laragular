@@ -1,0 +1,9 @@
+<section class="slide-right" ng-if="user">
+	<figure class="figure-image" ng-class="{'avatar-appear': user.gravatarImage}">
+		<img ng-show="user.gravatarImage" ng-src="{{user.gravatarImage}}" alt="alt">
+	</figure>
+	<div class="userinfo">
+		{{user}}
+	</div>
+
+</section>

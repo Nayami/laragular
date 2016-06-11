@@ -16,9 +16,14 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
 	Route::get( 'api/users/{id?}', function ( $id = null ) {
 		if ( $id ) {
-			return \App\User::with('meta')->find($id);
+			return \App\User::with( 'meta' )->find( $id );
 		}
-		return \App\User::with('meta')->get();
+
+		return \App\User::with( 'meta' )->get();
+	} );
+
+	Route::get( 'api/helpers/{helper}/{param?}', function ( $helper, $param = null ) {
+		return $helper( $param );
 	} );
 
 } );
