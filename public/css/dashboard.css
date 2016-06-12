@@ -1118,6 +1118,122 @@
   -webkit-transform: perspective(300px) rotateY(0deg);
   opacity: 1; }
 
+body.aa-modal-overlay {
+  overflow-y: hidden; }
+
+i[data-destroy-modal] {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 1; }
+  i[data-destroy-modal]:hover {
+    color: #df4343; }
+
+/**
+ * ==================================================
+ * ==================== Modals ======================
+ * ==================================================
+ */
+.modal-backdrop[itemscope="aa-modal"] {
+  background-color: rgba(255, 255, 255, 0.67);
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  z-index: 9991;
+  opacity: 0;
+  transition: all, 0.3s;
+  /*Mobile*/ }
+  .modal-backdrop[itemscope="aa-modal"] .aa-modal-container {
+    position: absolute;
+    max-height: 90%;
+    top: 60px;
+    left: 50%;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: -500px;
+    overflow-y: auto;
+    z-index: 5;
+    padding: 15px;
+    border-radius: 3px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    transition: all, 0.3s;
+    /**
+		 * =========================================================================
+		 * ==================== Default Modal animation state ======================
+		 * =========================================================================
+		 */ }
+    .modal-backdrop[itemscope="aa-modal"] .aa-modal-container[data-animation="scale"] {
+      transform: scale(0.5); }
+    .modal-backdrop[itemscope="aa-modal"] .aa-modal-container[data-animation="flip-x"] {
+      transform: rotateX(45deg); }
+    .modal-backdrop[itemscope="aa-modal"] .aa-modal-container[data-animation="flip-y"] {
+      transform: rotateY(45deg); }
+  @media (max-width: 1005px) {
+    .modal-backdrop[itemscope="aa-modal"] .aa-modal-container {
+      display: block;
+      width: 100%;
+      left: auto;
+      margin-left: auto; } }
+  .modal-backdrop[itemscope="aa-modal"].show {
+    opacity: 1; }
+    .modal-backdrop[itemscope="aa-modal"].show .aa-modal-container {
+      /**
+			 * =================================================================
+			 * ==================== Show modal Animations ======================
+			 * =================================================================
+			 */ }
+      .modal-backdrop[itemscope="aa-modal"].show .aa-modal-container[data-animation="scale"] {
+        transform: scale(1); }
+      .modal-backdrop[itemscope="aa-modal"].show .aa-modal-container[data-animation="flip-x"] {
+        transform: rotateX(0deg); }
+      .modal-backdrop[itemscope="aa-modal"].show .aa-modal-container[data-animation="flip-y"] {
+        transform: rotateY(0deg); }
+
+/**
+ * ==================================================
+ * ==================== Alerts ======================
+ * ==================================================
+ */
+.alert-backdrop {
+  background-color: rgba(255, 255, 255, 0.67);
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  opacity: 0;
+  transition: all, 0.3s;
+  /*Mobile*/ }
+  .alert-backdrop .alert {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 100%;
+    max-width: 500px;
+    margin-left: -250px;
+    z-index: 5;
+    text-align: center;
+    transition: all, 0.3s;
+    transform: scale(0.5); }
+  @media (max-width: 767px) {
+    .alert-backdrop .alert {
+      display: block;
+      width: 100%;
+      left: auto;
+      margin-left: auto; } }
+  .alert-backdrop.show {
+    opacity: 1; }
+    .alert-backdrop.show .alert {
+      transform: scale(1); }
+
+/**
+ * ==================== Modals define and config ======================
+ * 12.06.2016
+ */
 #users-handler .userpic-sm {
   width: 40px;
   float: left; }
@@ -1173,6 +1289,15 @@ body {
     background-size: cover;
     width: 100%;
     height: 100%; }
+
+#add-a-user-modal .aa-modal-container {
+  padding-top: 35px;
+  padding-bottom: 35px; }
+
+#add-a-user-modal input[type="text"],
+#add-a-user-modal input[type="email"],
+#add-a-user-modal input[type="password"] {
+  margin-bottom: 10px; }
 
 .dashboard-link, .navbar-default .navbar-brand,
 .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > .open > a, .navbar-default .dropdown-menu a {
@@ -1235,7 +1360,8 @@ body {
   margin-bottom: 10px;
   border-top: 1px solid rgba(32, 158, 145, 0.5);
   background-color: rgba(38, 93, 103, 0.6);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.26); }
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.26);
+  border-radius: 1px; }
   .section-item a, #users-handler > section a, .dashboard-section a {
     color: #00d5c7; }
     .section-item a:hover, #users-handler > section a:hover, .dashboard-section a:hover {
@@ -1256,5 +1382,16 @@ body {
     border-color: #1f4c54;
     border-radius: 0;
     color: #fff; }
+  .input-group.full-width-input {
+    width: 100%; }
+
+.btn {
+  border-radius: 1px; }
+  .btn.btn-default {
+    background-color: rgba(211, 211, 211, 0.72); }
+    .btn.btn-default:hover {
+      background-color: #e8e8e8; }
+  .btn:focus {
+    outline: none; }
 
 /*# sourceMappingURL=dashboard.css.map */

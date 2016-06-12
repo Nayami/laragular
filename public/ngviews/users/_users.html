@@ -1,6 +1,15 @@
-<div class="clearfix">
-	<div class="input-group col-sm-4 col-sm-offset-8">
-		<input type="text" placeholder="Search" ng-model="searchUser" class="form-control">
+<div class="row">
+	<div class="col-sm-8">
+		<div class="admin-actions input-group" ng-if="userCanmanage">
+			<button class="btn btn-default" data-related-modal="#add-a-user-modal" data-modal-trigger="addUserScope">
+				Add New User
+			</button>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="input-group full-width-input">
+			<input type="text" placeholder="Search" ng-model="searchUser" class="form-control">
+		</div>
 	</div>
 </div>
 

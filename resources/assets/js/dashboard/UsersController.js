@@ -9,6 +9,33 @@
 
 		$scope.dynamicTemplate = 'ngviews/users/_users.html';
 
+		$scope.userCanmanage = true;// Temporary
+
+		$scope.roles = [
+			{name:'admin', value:'Admin'},
+			{name:'manager', value:'Manager'},
+			{name:'customer', value:'Customer'},
+			{name:'subscriber', value:'Subscriber'},
+		];
+
+		$scope.addNew = function(){
+
+			$http.post('restusers', $scope.newuser)
+				.success(function(data){
+
+					var u = data.response.user;
+					u.gravatarImage = data.response.avatar;
+					u.role = data.response.role;
+					$scope.users.push(u);
+
+					$scope.newuser.name ="";
+					$scope.newuser.email ="";
+					$scope.newuser.password ="";
+				});
+
+		};
+
+
 		if ('user_id' in $routeParams) {
 			/**
 			 * ==================== Single user ======================

@@ -1,0 +1,201 @@
+@mixin transformPref($action) {
+	-o-transform      : $action;
+	-ms-transform     : $action;
+	-moz-transform    : $action;
+	-webkit-transform : $action;
+	transform         : $action;
+}
+
+@mixin scaleModal($scale: 0.5) {
+	@include transformPref(scale($scale));
+}
+
+@mixin flipXModal($modificator:45) {
+	@include transformPref(rotateX($modificator+deg))
+}
+
+@mixin flipYModal( $modificator:45) {
+	@include transformPref(rotateY($modificator+deg))
+}
+
+@mixin modalMix($container, $wide, $perspective:null, $origin:null) {
+	#{$container} {
+		@if ($perspective) {
+			perspective : $perspective+px;
+		}
+		@if ($origin) {
+			perspective-origin : $origin;
+		}
+		/*To tablet and desktop*/
+		@media (min-width : $wide+px) {
+			.aa-modal-container {
+				max-width   : $wide+px;
+				margin-left : -$wide/2+px;
+				left        : 50%;
+			}
+		}
+		/*Mobile*/
+		@media (max-width : $wide+px) {
+			.aa-modal-container {
+				display     : block;
+				width       : 100%;
+				left        : auto;
+				margin-left : auto;
+			}
+		}
+	}
+}
+
+
+body.aa-modal-overlay {
+	overflow-y : hidden;
+}
+
+i[data-destroy-modal] {
+	position  : absolute;
+	right     : 10px;
+	top : 10px;
+	cursor    : pointer;
+	font-size : 18px;
+	z-index: 1;
+	&:hover {
+		color : $dangerColor;
+	}
+}
+
+/**
+ * ==================================================
+ * ==================== Modals ======================
+ * ==================================================
+ */
+.modal-backdrop[itemscope="aa-modal"] {
+	background-color : rgba(255, 255, 255, 0.67);
+	position         : fixed;
+	display          : none;
+	width            : 100%;
+	height           : 100%;
+	z-index          : 9991;
+	opacity          : 0;
+	@include transition();
+	.aa-modal-container {
+		position         : absolute;
+		max-height       : 90%;
+		top              : 60px;
+		left             : 50%;
+		width            : 100%;
+		max-width        : 1000px;
+		margin-left      : -500px;
+		overflow-y       : auto;
+		z-index          : 5;
+		padding          : 15px;
+		border-radius    : 3px;
+		background-color : #fff;
+		border           : 1px solid #ccc;
+		@include transition();
+
+		/**
+		 * =========================================================================
+		 * ==================== Default Modal animation state ======================
+		 * =========================================================================
+		 */
+		&[data-animation="scale"] {
+			@include scaleModal();
+		}
+		&[data-animation="flip-x"] {
+			@include flipXModal();
+		}
+		&[data-animation="flip-y"] {
+			@include flipYModal();
+		}
+
+	}
+	/*Mobile*/
+	@media (max-width : 1005px) {
+		.aa-modal-container {
+			display     : block;
+			width       : 100%;
+			left        : auto;
+			margin-left : auto;
+		}
+	}
+	&.show {
+		opacity : 1;
+		.aa-modal-container {
+
+			/**
+			 * =================================================================
+			 * ==================== Show modal Animations ======================
+			 * =================================================================
+			 */
+			&[data-animation="scale"] {
+				@include scaleModal(1);
+			}
+			&[data-animation="flip-x"] {
+				@include flipXModal(0);
+			}
+			&[data-animation="flip-y"] {
+				@include flipYModal(0);
+			}
+
+		}
+	}
+}
+
+/**
+ * ==================================================
+ * ==================== Alerts ======================
+ * ==================================================
+ */
+.alert-backdrop {
+	background-color : rgba(255, 255, 255, 0.67);
+	position         : fixed;
+	display          : block;
+	width            : 100%;
+	height           : 100%;
+	z-index          : 200;
+	opacity          : 0;
+	@include transition();
+	.alert {
+		position          : absolute;
+		top               : 100px;
+		left              : 50%;
+		width             : 100%;
+		max-width         : 500px;
+		margin-left       : -250px;
+		z-index           : 5;
+		text-align        : center;
+		@include transition();
+
+		// @TODO: diff animaitons
+		-ms-transform     : scale(.5);
+		-webkit-transform : scale(.5);
+		transform         : scale(.5);
+	}
+
+	/*Mobile*/
+	@media (max-width : 767px) {
+		.alert {
+			display     : block;
+			width       : 100%;
+			left        : auto;
+			margin-left : auto;
+		}
+	}
+	&.show {
+		opacity : 1;
+		.alert {
+
+			// @TODO: diff animations
+			-ms-transform     : scale(1);
+			-webkit-transform : scale(1);
+			transform         : scale(1);
+		}
+	}
+}
+
+/**
+ * ==================== Modals define and config ======================
+ * 12.06.2016
+ */
+// selector | width | perspective | origin
+//@include modalMix('#related-modal-id', 500, 700, top);
