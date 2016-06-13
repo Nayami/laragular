@@ -14,6 +14,7 @@
 </div>
 
 <section class="scale-fade clearfix" ng-repeat="usr in users | filter:searchUser" ng-style="{'transition-delay':'0.1s'}">
+	<i class="fa fa-remove" ng-click="destroyUser(usr.id, $index)"></i>
 	<a class="userpic-sm" href="#/users/{{usr.id}}">
 		<img ng-src="{{usr.gravatarImage}}" alt="alt">
 	</a>

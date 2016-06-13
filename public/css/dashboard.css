@@ -1290,14 +1290,62 @@ body {
     width: 100%;
     height: 100%; }
 
-#add-a-user-modal .aa-modal-container {
-  padding-top: 35px;
-  padding-bottom: 35px; }
+.fafont {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome !important;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 
-#add-a-user-modal input[type="text"],
-#add-a-user-modal input[type="email"],
-#add-a-user-modal input[type="password"] {
+.alert-backdrop,
+.default-backend-modal,
+#add-a-user-modal {
+  background-color: rgba(126, 65, 0, 0.34);
+  background: linear-gradient(to bottom, #000 0%, rgba(126, 65, 0, 0.34) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ie-hex-str($color1)', startColorstr='#ie-hex-str($color2)', GradientType=0); }
+  .alert-backdrop .aa-modal-container,
+  .default-backend-modal .aa-modal-container, #add-a-user-modal .aa-modal-container {
+    border-radius: 1px;
+    padding-top: 35px;
+    padding-bottom: 15px; }
+  .alert-backdrop input.ng-invalid.ng-touched,
+  .default-backend-modal input.ng-invalid.ng-touched, #add-a-user-modal input.ng-invalid.ng-touched {
+    box-shadow: 0 0 5px rgba(223, 67, 67, 0.7); }
+  .alert-backdrop input.ng-valid.ng-touched,
+  .default-backend-modal input.ng-valid.ng-touched, #add-a-user-modal input.ng-valid.ng-touched {
+    box-shadow: 0 0 5px rgba(45, 165, 25, 0.5); }
+  .alert-backdrop .alert,
+  .default-backend-modal .alert, #add-a-user-modal .alert {
+    border-radius: 1px; }
+
+.input-group {
   margin-bottom: 10px; }
+  .input-group ::-webkit-input-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group ::-moz-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group :-ms-input-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group :-moz-placeholder {
+    color: rgba(2, 206, 255, 0.7); }
+  .input-group .form-control {
+    background-color: rgba(32, 158, 145, 0.3);
+    border-color: #1f4c54;
+    border-radius: 0;
+    color: #fff; }
+  .input-group select option {
+    background-color: #1f4c54;
+    border-color: transparent; }
+  .input-group.full-width-input {
+    width: 100%; }
+
+.aa-input-group {
+  margin-bottom: 10px; }
+  .aa-input-group .form-control {
+    border-radius: 1px;
+    color: #265d67; }
 
 .dashboard-link, .navbar-default .navbar-brand,
 .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > .open > a, .navbar-default .dropdown-menu a {
@@ -1366,24 +1414,11 @@ body {
     color: #00d5c7; }
     .section-item a:hover, #users-handler > section a:hover, .dashboard-section a:hover {
       color: #02CEFF; }
-
-.input-group {
-  margin-bottom: 10px; }
-  .input-group ::-webkit-input-placeholder {
-    color: rgba(2, 206, 255, 0.7); }
-  .input-group ::-moz-placeholder {
-    color: rgba(2, 206, 255, 0.7); }
-  .input-group :-ms-input-placeholder {
-    color: rgba(2, 206, 255, 0.7); }
-  .input-group :-moz-placeholder {
-    color: rgba(2, 206, 255, 0.7); }
-  .input-group .form-control {
-    background-color: rgba(32, 158, 145, 0.3);
-    border-color: #1f4c54;
-    border-radius: 0;
-    color: #fff; }
-  .input-group.full-width-input {
-    width: 100%; }
+  .section-item i.fa-remove, #users-handler > section i.fa-remove, .dashboard-section i.fa-remove {
+    float: right;
+    cursor: pointer; }
+    .section-item i.fa-remove:hover, #users-handler > section i.fa-remove:hover, .dashboard-section i.fa-remove:hover {
+      color: #df4343; }
 
 .btn {
   border-radius: 1px; }

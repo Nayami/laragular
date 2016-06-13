@@ -4,8 +4,10 @@
 	angular.module('dashboardModule')
 		.controller('UsersController', UsersController);
 
-	UsersController.$inject = ['$scope', '$http', '$routeParams', 'ServiceHelpers'];
-	function UsersController($scope, $http, $routeParams, ServiceHelpers) {
+	UsersController.$inject = ['$scope', '$http', '$routeParams', 'ServiceHelpers', 'appConst' ];
+	function UsersController($scope, $http, $routeParams, ServiceHelpers, appConst) {
+
+		//appConst.csrf
 
 		$scope.dynamicTemplate = 'ngviews/users/_users.html';
 
@@ -18,20 +20,39 @@
 			{name:'subscriber', value:'Subscriber'},
 		];
 
+		// Create a User
 		$scope.addNew = function(){
-
 			$http.post('restusers', $scope.newuser)
 				.success(function(data){
 
-					var u = data.response.user;
-					u.gravatarImage = data.response.avatar;
-					u.role = data.response.role;
-					$scope.users.push(u);
+					if(data !== 'fail') {
+						var u = data.response.user;
+						u.gravatarImage = data.response.avatar;
+						u.role = data.response.role;
+						$scope.users.push(u);
 
-					$scope.newuser.name ="";
-					$scope.newuser.email ="";
-					$scope.newuser.password ="";
+						$scope.newuser.name ="";
+						$scope.newuser.email ="";
+						$scope.newuser.password ="";
+
+						appConst.detachModalEvent('#add-a-user-modal');
+					}
 				});
+		};
+
+		// Destroy user
+		$scope.destroyUser = function (id, $index) {
+
+			if(!confirm('Are you sure?'))
+				return false;
+			$http.delete('restusers/' + id).then(function(response) {
+
+				if (response.data.status === "self_del")
+					appConst.launchModalAlert('danger','You can\'t delete yourself');
+
+				if (response.data.status === "success")
+					$scope.users.splice($index, 1);
+			});
 
 		};
 

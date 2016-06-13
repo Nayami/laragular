@@ -29,7 +29,6 @@
 			})
 	}
 
-
 })();
 ;(function() {
 	"use strict";
@@ -45,6 +44,41 @@
 		//	.success(function(settings) {$scope.settings = true;})
 		//	.error(function() {$scope.user = false;});
 	}
+
+})();
+;(function() {
+	"use strict";
+
+	var modalAlert = function(itemClass, msg) {
+		return "<div class='alert-backdrop'><div class='alert alert-" + itemClass + "'>" +
+			"<p>" + msg + "</p></div></div>"
+	};
+
+
+	angular.module('dashboardModule')
+		.constant('appConst', {
+			csrf            : angular.element.find('meta[name="csrf-roken"]')[0].content,
+			launchModalAlert: function(itemClass, msg) {
+				var bodyselector = angular.element('body');
+				bodyselector.prepend(modalAlert(itemClass, msg));
+				setTimeout(function() {
+					bodyselector.find('.alert-backdrop').addClass('show');
+				}, 100);
+			},
+			detachModalEvent: function(modal) {
+				var modalOverlay = angular.element(modal),
+					relatedTrigger = angular.element('[data-related-modal="' + modal + '"]') || null,
+					type = relatedTrigger.length > 0 ? relatedTrigger.attr('data-modal-trigger') : null;
+
+				modalOverlay.removeClass('show');
+				setTimeout(function() {
+					modalOverlay.css('display', 'none');
+					angular.element(window).trigger('aaModalClosed', [type, relatedTrigger])
+				}, 300);
+
+			}
+		});
+
 
 })();
 ;(function() {
@@ -70,8 +104,10 @@
 	angular.module('dashboardModule')
 		.controller('UsersController', UsersController);
 
-	UsersController.$inject = ['$scope', '$http', '$routeParams', 'ServiceHelpers'];
-	function UsersController($scope, $http, $routeParams, ServiceHelpers) {
+	UsersController.$inject = ['$scope', '$http', '$routeParams', 'ServiceHelpers', 'appConst' ];
+	function UsersController($scope, $http, $routeParams, ServiceHelpers, appConst) {
+
+		//appConst.csrf
 
 		$scope.dynamicTemplate = 'ngviews/users/_users.html';
 
@@ -84,20 +120,39 @@
 			{name:'subscriber', value:'Subscriber'},
 		];
 
+		// Create a User
 		$scope.addNew = function(){
-
 			$http.post('restusers', $scope.newuser)
 				.success(function(data){
 
-					var u = data.response.user;
-					u.gravatarImage = data.response.avatar;
-					u.role = data.response.role;
-					$scope.users.push(u);
+					if(data !== 'fail') {
+						var u = data.response.user;
+						u.gravatarImage = data.response.avatar;
+						u.role = data.response.role;
+						$scope.users.push(u);
 
-					$scope.newuser.name ="";
-					$scope.newuser.email ="";
-					$scope.newuser.password ="";
+						$scope.newuser.name ="";
+						$scope.newuser.email ="";
+						$scope.newuser.password ="";
+
+						appConst.detachModalEvent('#add-a-user-modal');
+					}
 				});
+		};
+
+		// Destroy user
+		$scope.destroyUser = function (id, $index) {
+
+			if(!confirm('Are you sure?'))
+				return false;
+			$http.delete('restusers/' + id).then(function(response) {
+
+				if (response.data.status === "self_del")
+					appConst.launchModalAlert('danger','You can\'t delete yourself');
+
+				if (response.data.status === "success")
+					$scope.users.splice($index, 1);
+			});
 
 		};
 

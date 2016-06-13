@@ -7,6 +7,7 @@ use App\Usermeta;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller {
 
@@ -39,22 +40,30 @@ class UsersController extends Controller {
 	 */
 	public function store( Request $request )
 	{
-		$user_data = $request->except( 'role' );
-		$role      = $request->only( 'role' );
-		$user      = User::create( $user_data );
-		$usermeta  = Usermeta::create( [
-			'user_id'    => $user->id,
-			'meta_key'   => 'role',
-			'meta_value' => $role['role']['name']
-		] );
+		$all = $request->all();
 
-		return [
-			'response' => [
-				'user' => User::find($user->id),
-				'avatar'  => get_gravatar( $user->email, 40 ),
-				'role'=> $role['role']['name']
-			]
-		];
+		if($all['name'] && $all['email'] && $all['password']) {
+			// @TODO: password and email validation
+			$user_data = $request->except( 'role' );
+			$role      = $request->only( 'role' );
+			$user      = User::create( $user_data );
+			$usermeta  = Usermeta::create( [
+				'user_id'    => $user->id,
+				'meta_key'   => 'role',
+				'meta_value' => $role['role']['name']
+			] );
+
+			return [
+				'response' => [
+					'user' => User::find($user->id),
+					'avatar'  => get_gravatar( $user->email, 40 ),
+					'role'=> $role['role']['name']
+				]
+			];
+		} else {
+			return 'fail';
+		}
+
 	}
 
 	/**
@@ -103,6 +112,12 @@ class UsersController extends Controller {
 	 */
 	public function destroy( $id )
 	{
-		//
+		if(Auth::user()->id === (int)$id)
+			return response([ 'status' => 'self_del' ]);
+
+		if ( User::destroy($id) )
+			return response( [ 'status' => 'success' ] );
+
+		return response( [ 'status' => 'fail' ] );
 	}
 }

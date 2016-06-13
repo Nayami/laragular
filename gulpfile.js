@@ -43,17 +43,21 @@ elixir(function(mix) {
 		//	boooJs+'transition.js'
 		//], 'public/js/bootstrap.js')
 
-		// Angular Components
+		// Plugins Components
 		//.scripts([
 		//	'./bower_components/angular/angular.min.js',
 		//	'./bower_components/angular-resource/angular-resource.min.js',
 		//	'./bower_components/angular-route/angular-route.min.js',
 		//	'./bower_components/angular-animate/angular-animate.min.js',
 
+			//'./bower_components/ng-dialog/js/ngDialog.min.js',
+
 			//'./bower_components/angular/angular.js',
 			//'./bower_components/angular-resource/angular-resource.js',
 			//'./bower_components/angular-route/angular-route.js',
 			//'./bower_components/angular-animate/angular-animate.js'
+
+			//'./bower_components/ng-dialog/js/ngDialog.js',
 
 		//], 'public/js/angular-compiled.js')
 
@@ -62,6 +66,7 @@ elixir(function(mix) {
 		.scripts([
 			'dashboard/module.js',
 			'dashboard/DashboardController.js',
+			'dashboard/appConst.js',
 			'dashboard/ServiceHelpers.js',
 			'dashboard/UsersController.js',
 			'dashboard/AsideController.js',
