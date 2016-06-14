@@ -65,6 +65,7 @@ elixir(function(mix) {
 		// Dashboard
 		.scripts([
 			'dashboard/module.js',
+			'dashboard/SettingsController.js',
 			'dashboard/DashboardController.js',
 			'dashboard/appConst.js',
 			'dashboard/ServiceHelpers.js',

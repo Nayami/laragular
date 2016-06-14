@@ -1362,6 +1362,10 @@ body {
   .input-group.full-width-input {
     width: 100%; }
 
+.dashboard-main-title {
+  margin-top: 0;
+  color: #fff; }
+
 .aa-input-group {
   margin-bottom: 10px; }
   .aa-input-group .form-control {
@@ -1427,7 +1431,7 @@ body {
       #dashboard-sidebar > ul a.active i {
         color: #265d67; }
 
-.section-item, #users-handler > section, .dashboard-section {
+.section-item, #users-handler > section, #settings-scope section, .dashboard-section {
   color: #fff;
   padding: 10px;
   margin-bottom: 10px;
@@ -1435,14 +1439,14 @@ body {
   background-color: rgba(38, 93, 103, 0.6);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.26);
   border-radius: 1px; }
-  .section-item a, #users-handler > section a, .dashboard-section a {
+  .section-item a, #users-handler > section a, #settings-scope section a, .dashboard-section a {
     color: #00d5c7; }
-    .section-item a:hover, #users-handler > section a:hover, .dashboard-section a:hover {
+    .section-item a:hover, #users-handler > section a:hover, #settings-scope section a:hover, .dashboard-section a:hover {
       color: #02CEFF; }
-  .section-item i.fa-remove, #users-handler > section i.fa-remove, .dashboard-section i.fa-remove {
+  .section-item i.fa-remove, #users-handler > section i.fa-remove, #settings-scope section i.fa-remove, .dashboard-section i.fa-remove {
     float: right;
     cursor: pointer; }
-    .section-item i.fa-remove:hover, #users-handler > section i.fa-remove:hover, .dashboard-section i.fa-remove:hover {
+    .section-item i.fa-remove:hover, #users-handler > section i.fa-remove:hover, #settings-scope section i.fa-remove:hover, .dashboard-section i.fa-remove:hover {
       color: #df4343; }
 
 .btn {

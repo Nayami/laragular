@@ -31,6 +31,7 @@
 
 		$scope.userCanmanage = true;// Temporary
 
+		// Temporary
 		$scope.roles = [
 			{name:'developer', value:'Developer'},
 			{name:'admin', value:'Admin'},

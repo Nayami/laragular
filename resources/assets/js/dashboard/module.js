@@ -28,6 +28,10 @@
 				templateUrl: 'ngviews/users.html',
 				controller : 'UsersController'
 			})
+			.when('/settings', {
+				templateUrl: 'ngviews/settings.html',
+				controller : 'SettingsController'
+			})
 			.otherwise({
 				redirectTo : '/'
 			})

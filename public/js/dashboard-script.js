@@ -28,6 +28,10 @@
 				templateUrl: 'ngviews/users.html',
 				controller : 'UsersController'
 			})
+			.when('/settings', {
+				templateUrl: 'ngviews/settings.html',
+				controller : 'SettingsController'
+			})
 			.otherwise({
 				redirectTo : '/'
 			})
@@ -38,11 +42,33 @@
 	"use strict";
 
 	angular.module('dashboardModule')
+		.controller('SettingsController', SettingsController);
+
+	SettingsController.$inject = ['$scope', '$http'];
+	function SettingsController($scope, $http) {
+
+		$http.get('settings')
+			.success(function(settings){
+				$scope.allsettings = settings;
+			});
+
+
+	}
+
+})();
+;(function() {
+	"use strict";
+
+	angular.module('dashboardModule')
 		.controller('DashboardController', DashboardController);
 
-	DashboardController.$inject = ['$scope', '$http'];
-	function DashboardController($scope, $http) {
-		$scope.settings = false;
+	DashboardController.$inject = ['$scope', '$http', '$timeout'];
+	function DashboardController($scope, $http, $timeout) {
+
+		//@TODO: maybe change to http call
+		$timeout(function(){
+			$scope.dashboardWidgets = true;
+		},50);
 
 		//$http.get('api/settings')
 		//	.success(function(settings) {$scope.settings = true;})
@@ -182,6 +208,7 @@
 
 		$scope.userCanmanage = true;// Temporary
 
+		// Temporary
 		$scope.roles = [
 			{name:'developer', value:'Developer'},
 			{name:'admin', value:'Admin'},
