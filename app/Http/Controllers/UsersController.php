@@ -100,6 +100,15 @@ class UsersController extends Controller {
 	 */
 	public function update( Request $request, $id )
 	{
+		$input = $request->all();
+		$user = $request->except(['role']);
+		$role = $input['role'];
+		User::where('id', $id)->update($user);
+		Usermeta::where('user_id', $id)
+			->where('meta_key', 'role')
+			->update([
+				'meta_value'=> $role['name']
+			]);
 		// @TODO: check if user can manage users
 
 		return response(['status'=>'success']);

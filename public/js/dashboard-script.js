@@ -208,6 +208,8 @@
 						var u = data.response.user;
 						u.gravatarImage = data.response.avatar;
 						u.role = data.response.role;
+						u._date = new Date(data.response.user.created_at);
+
 						$scope.users.push(u);
 
 						$scope.newuser.name ="";
@@ -223,10 +225,11 @@
 			$http.patch('restusers/'+id, $scope.edituser)
 				.success(function(data){
 					if(data.status === 'restrict') {
-
+						appConst.launchModalAlert('danger', 'You can\'t perform this actions');
 					}
 					if(data.status === 'success') {
-
+						appConst.launchModalAlert('success', 'User Updated');
+						$location.path('/users/'+id).replace();
 					}
 
 				});
