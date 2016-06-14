@@ -170,7 +170,6 @@ jQuery(document).ready(function ($){
 	$('.alert-backdrop').waitUntilExists(function() {
 		var that = $(this);
 		that.on('click', function(e) {
-			console.log(e.target);
 			if (elemHasClass(e.target, 'alert-backdrop') || $(e.target).attr('data-confirm')) {
 				that.removeClass('show');
 				setTimeout(function() {

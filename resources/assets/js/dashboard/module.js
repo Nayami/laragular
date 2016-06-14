@@ -24,6 +24,10 @@
 				templateUrl: 'ngviews/users.html',
 				controller : 'UsersController'
 			})
+			.when('/users/edit/:user_id?', {
+				templateUrl: 'ngviews/users.html',
+				controller : 'UsersController'
+			})
 			.otherwise({
 				redirectTo : '/'
 			})

@@ -1279,6 +1279,16 @@ i[data-destroy-modal] {
 .auth-profile-links i, .auth-profile-links img {
   margin-right: 10px; }
 
+.user-footer-actions {
+  text-align: right;
+  margin-top: 3px; }
+  .user-footer-actions a {
+    margin-left: 5px; }
+  .user-footer-actions .role {
+    color: rgba(255, 255, 255, 0.7); }
+  .user-footer-actions .date {
+    float: left; }
+
 body {
   overflow-x: hidden; }
   body:before {
@@ -1297,6 +1307,9 @@ body {
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+.alert-backdrop h1, .alert-backdrop h2 {
+  margin-top: 0; }
 
 .alert-backdrop,
 .default-backend-modal,

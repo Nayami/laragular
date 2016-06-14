@@ -20,6 +20,12 @@
 	</a>
 	<div class="userinfo">
 		<h4><a href="#/users/{{usr.id}}">#{{usr.id}} {{usr.name}} | {{usr.email}}</a></h4>
-		{{usr.role}}
+
+		<footer class="clearfix user-footer-actions">
+			<span class="date">{{usr._date | date: 'MMM dd yyyy'}}</span>
+			<span class="role">{{usr.role}}</span>
+			<span><a href="#/users/{{usr.id}}">View</a></span>
+			<span><a href="#/users/edit/{{usr.id}}">Edit</a></span>
+		</footer>
 	</div>
 </section>

@@ -11,7 +11,8 @@
 		'ServiceHelpers',
 		'appConst',
 		'$timeout',
-		'$compile'
+		'$compile',
+		'$location'
 	];
 	function UsersController(
 		$scope,
@@ -20,7 +21,8 @@
 		ServiceHelpers,
 		appConst,
 		$timeout,
-		$compile
+		$compile,
+		$location
 	) {
 
 		//appConst.csrf
@@ -80,10 +82,6 @@
 
 			}, 50);
 
-			//if(!confirm('Are you sure?'))
-			//	return false;
-
-
 		};
 
 
@@ -93,6 +91,10 @@
 			 */
 			$scope.dynamicTemplate = 'ngviews/users/_single_user.html';
 
+			if($location.path().indexOf('/users/edit/') > -1) {
+				$scope.dynamicTemplate = 'ngviews/users/_edit_user.html';
+			}
+
 			$http.get('api/users/' + $routeParams.user_id)
 				.success(function(user) {
 					$scope.user = user;
@@ -101,7 +103,6 @@
 							user.role = mt.meta_value;
 						}
 					});
-
 					// Set Avatar
 					var argues = JSON.stringify({ email: user.email, size: 200});
 					ServiceHelpers.avatarUrl()
@@ -126,6 +127,7 @@
 								index.role = mt.meta_value;
 							}
 						});
+						index._date = new Date(index.created_at);
 
 						// Set avatar
 						var argues = JSON.stringify({ email: index.email, size: 40});

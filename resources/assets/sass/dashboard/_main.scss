@@ -20,7 +20,11 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
+.alert-backdrop {
+	h1, h2 {
+		margin-top : 0;
+	}
+}
 .alert-backdrop,
 .default-backend-modal {
 	//@include gradient(#000, transparentize($darkTurquose, .8));
