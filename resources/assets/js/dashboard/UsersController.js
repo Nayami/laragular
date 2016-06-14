@@ -4,8 +4,24 @@
 	angular.module('dashboardModule')
 		.controller('UsersController', UsersController);
 
-	UsersController.$inject = ['$scope', '$http', '$routeParams', 'ServiceHelpers', 'appConst' ];
-	function UsersController($scope, $http, $routeParams, ServiceHelpers, appConst) {
+	UsersController.$inject = [
+		'$scope',
+		'$http',
+		'$routeParams',
+		'ServiceHelpers',
+		'appConst',
+		'$timeout',
+		'$compile'
+	];
+	function UsersController(
+		$scope,
+		$http,
+		$routeParams,
+		ServiceHelpers,
+		appConst,
+		$timeout,
+		$compile
+	) {
 
 		//appConst.csrf
 
@@ -43,16 +59,30 @@
 		// Destroy user
 		$scope.destroyUser = function (id, $index) {
 
-			if(!confirm('Are you sure?'))
-				return false;
-			$http.delete('restusers/' + id).then(function(response) {
+			$timeout(function() {
+				var ahtm = ServiceHelpers.mconf('alert-users-warn', 'warning', 'Are you sure?');
+				$("body").prepend($compile(ahtm)($scope));
+				setTimeout(function() {angular.element('body').find('#alert-users-warn').addClass('show');}, 50);
 
-				if (response.data.status === "self_del")
-					appConst.launchModalAlert('danger','You can\'t delete yourself');
+				angular.element('#alert-users-warn').find('[data-confirm=confirm]').on('click', function(){
 
-				if (response.data.status === "success")
-					$scope.users.splice($index, 1);
-			});
+					$http.delete('restusers/' + id).then(function(response) {
+
+						if (response.data.status === "self_del")
+							appConst.launchModalAlert('danger','You can\'t delete yourself');
+
+						if (response.data.status === "success")
+							$scope.users.splice($index, 1);
+
+					});
+
+				});
+
+			}, 50);
+
+			//if(!confirm('Are you sure?'))
+			//	return false;
+
 
 		};
 

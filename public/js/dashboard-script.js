@@ -50,19 +50,46 @@
 	"use strict";
 
 	var modalAlert = function(itemClass, msg) {
-		return "<div class='alert-backdrop'><div class='alert alert-" + itemClass + "'>" +
-			"<p>" + msg + "</p></div></div>"
-	};
+		return "\
+			<div class='alert-backdrop'>\
+				<div class='alert alert-" + itemClass + "'>\
+				<p>" + msg + "</p>\
+				</div>\
+			</div>";
+	},
+		modalConfirm = function(confirmid, itemClass, msg) {
+			return "\
+			<div class='alert-backdrop' id='"+confirmid+"'>\
+				<div class='alert alert-" + itemClass + "'>\
+				<h2>" + msg + "</h2>\
+				<div class='btn-group btn-group-justified' role='group'>\
+					<div class='btn-group' role='group'>\
+						<button data-confirm='confirm' type='button' class='btn btn-default'>I'm sure</button>\
+					</div>\
+					<div class='btn-group' role='group'>\
+						<button data-confirm='cancel' type='button' class='btn btn-default'>I've changed my mind</button>\
+					</div>\
+				</div>\
+				</div>\
+			</div>";
+		};
 
 
 	angular.module('dashboardModule')
 		.constant('appConst', {
 			csrf            : angular.element.find('meta[name="csrf-roken"]')[0].content,
 			launchModalAlert: function(itemClass, msg) {
-				var bodyselector = angular.element('body');
-				bodyselector.prepend(modalAlert(itemClass, msg));
+				var bodyElem = angular.element('body');
+				bodyElem.prepend(modalAlert(itemClass, msg));
 				setTimeout(function() {
-					bodyselector.find('.alert-backdrop').addClass('show');
+					bodyElem.find('.alert-backdrop').addClass('show');
+				}, 100);
+			},
+			modalConfirm : function(confirmid, itemClass, msg){
+				var bodyElem = angular.element('body');
+				bodyElem.prepend(modalConfirm(confirmid, itemClass, msg));
+				setTimeout(function() {
+					bodyElem.find('.alert-backdrop').addClass('show');
 				}, 100);
 			},
 			detachModalEvent: function(modal) {
@@ -84,14 +111,34 @@
 ;(function() {
 	"use strict";
 
+
 	angular.module('dashboardModule')
 		.factory('ServiceHelpers', ServiceHelpers);
 
 	ServiceHelpers.$inject = ['$resource', '$http', '$location'];
 	function ServiceHelpers($resource, $http, $location) {
 		return {
-			avatarUrl : function() {
-				return $resource("api/data/:helper/:argues",{ helper: '@helper', argues: '@argues' });
+			avatarUrl    : function() {
+				return $resource("api/data/:helper/:argues", {
+					helper: '@helper',
+					argues: '@argues'
+				});
+			},
+			mconf : function(confirmid, itemClass, msg){
+				return "\
+			<div class='alert-backdrop' id='"+confirmid+"'>\
+				<div class='alert alert-" + itemClass + "'>\
+				<h2>" + msg + "</h2>\
+				<div class='btn-group btn-group-justified' role='group'>\
+					<div class='btn-group' role='group'>\
+						<button data-confirm='confirm' type='button' class='btn btn-default'>I'm sure</button>\
+					</div>\
+					<div class='btn-group' role='group'>\
+						<button data-confirm='cancel' type='button' class='btn btn-default'>I've changed my mind</button>\
+					</div>\
+				</div>\
+				</div>\
+			</div>"
 			}
 
 		};
@@ -104,8 +151,24 @@
 	angular.module('dashboardModule')
 		.controller('UsersController', UsersController);
 
-	UsersController.$inject = ['$scope', '$http', '$routeParams', 'ServiceHelpers', 'appConst' ];
-	function UsersController($scope, $http, $routeParams, ServiceHelpers, appConst) {
+	UsersController.$inject = [
+		'$scope',
+		'$http',
+		'$routeParams',
+		'ServiceHelpers',
+		'appConst',
+		'$timeout',
+		'$compile'
+	];
+	function UsersController(
+		$scope,
+		$http,
+		$routeParams,
+		ServiceHelpers,
+		appConst,
+		$timeout,
+		$compile
+	) {
 
 		//appConst.csrf
 
@@ -143,16 +206,30 @@
 		// Destroy user
 		$scope.destroyUser = function (id, $index) {
 
-			if(!confirm('Are you sure?'))
-				return false;
-			$http.delete('restusers/' + id).then(function(response) {
+			$timeout(function() {
+				var ahtm = ServiceHelpers.mconf('alert-users-warn', 'warning', 'Are you sure?');
+				$("body").prepend($compile(ahtm)($scope));
+				setTimeout(function() {angular.element('body').find('#alert-users-warn').addClass('show');}, 50);
 
-				if (response.data.status === "self_del")
-					appConst.launchModalAlert('danger','You can\'t delete yourself');
+				angular.element('#alert-users-warn').find('[data-confirm=confirm]').on('click', function(){
 
-				if (response.data.status === "success")
-					$scope.users.splice($index, 1);
-			});
+					$http.delete('restusers/' + id).then(function(response) {
+
+						if (response.data.status === "self_del")
+							appConst.launchModalAlert('danger','You can\'t delete yourself');
+
+						if (response.data.status === "success")
+							$scope.users.splice($index, 1);
+
+					});
+
+				});
+
+			}, 50);
+
+			//if(!confirm('Are you sure?'))
+			//	return false;
+
 
 		};
 
@@ -405,8 +482,8 @@ jQuery(document).ready(function ($){
 	$('.alert-backdrop').waitUntilExists(function() {
 		var that = $(this);
 		that.on('click', function(e) {
-			e.stopPropagation();
-			if (elemHasClass(e.target, 'alert-backdrop')) {
+			console.log(e.target);
+			if (elemHasClass(e.target, 'alert-backdrop') || $(e.target).attr('data-confirm')) {
 				that.removeClass('show');
 				setTimeout(function() {
 					that.remove();
