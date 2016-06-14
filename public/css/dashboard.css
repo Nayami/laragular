@@ -1289,6 +1289,11 @@ i[data-destroy-modal] {
   .user-footer-actions .date {
     float: left; }
 
+.edit-user-btn {
+  position: absolute;
+  right: 0;
+  top: 0; }
+
 body {
   overflow-x: hidden; }
   body:before {
@@ -1310,6 +1315,9 @@ body {
 
 .alert-backdrop h1, .alert-backdrop h2 {
   margin-top: 0; }
+
+.relative-container {
+  position: relative; }
 
 .alert-backdrop,
 .default-backend-modal,
@@ -1359,6 +1367,10 @@ body {
   .aa-input-group .form-control {
     border-radius: 1px;
     color: #265d67; }
+  .aa-input-group.turqose-group input[type='text'],
+  .aa-input-group.turqose-group input[type='email'], .aa-input-group.turqose-group select {
+    border-color: #209e91;
+    background-color: #B3D5D4; }
 
 .dashboard-link, .navbar-default .navbar-brand,
 .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > .open > a, .navbar-default .dropdown-menu a {

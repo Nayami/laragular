@@ -25,6 +25,10 @@ body {
 		margin-top : 0;
 	}
 }
+.relative-container {
+	position : relative;
+}
+
 .alert-backdrop,
 .default-backend-modal {
 	//@include gradient(#000, transparentize($darkTurquose, .8));
@@ -71,6 +75,14 @@ body {
 	.form-control {
 		border-radius: 1px;
 		color : $darkTurquose;
+	}
+	&.turqose-group {
+		input[type='text'],
+		input[type='email'], select {
+			border-color: $turquoise2;
+			background-color: $lighturqose;
+
+		}
 	}
 }
 

@@ -100,7 +100,9 @@ class UsersController extends Controller {
 	 */
 	public function update( Request $request, $id )
 	{
-		//
+		// @TODO: check if user can manage users
+
+		return response(['status'=>'success']);
 	}
 
 	/**

@@ -32,11 +32,21 @@
 		$scope.userCanmanage = true;// Temporary
 
 		$scope.roles = [
+			{name:'developer', value:'Developer'},
 			{name:'admin', value:'Admin'},
 			{name:'manager', value:'Manager'},
 			{name:'customer', value:'Customer'},
 			{name:'subscriber', value:'Subscriber'},
 		];
+
+		$scope.currentRole = function(role) {
+			var position = 0;
+			angular.forEach($scope.roles, function(v, k){
+				if(v.name == role)
+					position = k;
+			});
+			return position;
+		};
 
 		// Create a User
 		$scope.addNew = function(){
@@ -55,6 +65,19 @@
 
 						appConst.detachModalEvent('#add-a-user-modal');
 					}
+				});
+		};
+
+		$scope.updateUser = function(id){
+			$http.patch('restusers/'+id, $scope.edituser)
+				.success(function(data){
+					if(data.status === 'restrict') {
+
+					}
+					if(data.status === 'success') {
+
+					}
+
 				});
 		};
 
