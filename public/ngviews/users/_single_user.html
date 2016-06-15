@@ -18,7 +18,11 @@
 				<th>Email</th><td>{{user.email}}</td>
 			</tr>
 			<tr>
-				<th>Role</th><td>{{user.role}}</td>
+				<th>Roles</th><td>
+				<ul class="list-inline view-usr-roles">
+					<li ng-repeat="singleRole in user.roles">{{singleRole.label}}</li>
+				</ul>
+			</td>
 			</tr>
 			<tr>
 				<th colspan="2">User Meta:</th>

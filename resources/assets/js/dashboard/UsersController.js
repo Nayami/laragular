@@ -31,23 +31,17 @@
 
 		$scope.userCanmanage = true;// Temporary
 
-		// Temporary
-		$scope.roles = [
-			{name:'developer', value:'Developer'},
-			{name:'admin', value:'Admin'},
-			{name:'manager', value:'Manager'},
-			{name:'customer', value:'Customer'},
-			{name:'subscriber', value:'Subscriber'},
-		];
-
-		$scope.currentRole = function(role) {
-			var position = 0;
-			angular.forEach($scope.roles, function(v, k){
-				if(v.name == role)
-					position = k;
+		// Get available roles
+		$scope.defaultRoles = [];
+		$http.get('api/data/get_available_roles')
+			.success(function(data) {
+				angular.forEach(data, function(item) {
+					$scope.defaultRoles.push({
+						name : item.name,
+						value: item.label
+					});
+				});
 			});
-			return position;
-		};
 
 		// Create a User
 		$scope.addNew = function(){
@@ -57,7 +51,7 @@
 					if(data !== 'fail') {
 						var u = data.response.user;
 						u.gravatarImage = data.response.avatar;
-						u.role = data.response.role;
+						u.roles = data.response.roles;
 						u._date = new Date(data.response.user.created_at);
 
 						$scope.users.push(u);
@@ -71,8 +65,14 @@
 				});
 		};
 
+		/**
+		 * =======================================================
+		 * ==================== Update User ======================
+		 * =======================================================
+		 */
 		$scope.updateUser = function(id){
-			$http.patch('restusers/'+id, $scope.edituser)
+
+			$http.patch('restusers/'+id, $scope.user)
 				.success(function(data){
 					if(data.status === 'restrict') {
 						appConst.launchModalAlert('danger', 'You can\'t perform this actions');
@@ -81,7 +81,6 @@
 						appConst.launchModalAlert('success', 'User Updated');
 						$location.path('/users/'+id).replace();
 					}
-
 				});
 		};
 
@@ -114,7 +113,9 @@
 
 		if ('user_id' in $routeParams) {
 			/**
+			 * =======================================================
 			 * ==================== Single user ======================
+			 * =======================================================
 			 */
 			$scope.dynamicTemplate = 'ngviews/users/_single_user.html';
 
@@ -124,12 +125,16 @@
 
 			$http.get('api/users/' + $routeParams.user_id)
 				.success(function(user) {
-					$scope.user = user;
-					user.meta.forEach(function(mt){
-						if(mt.meta_key === 'role') {
-							user.role = mt.meta_value;
-						}
+					var rls = [];
+					angular.forEach(user.roles, function(item) {
+						rls.push({
+							name : item.name,
+							value: item.label
+						});
 					});
+					user.__roles = rls;
+					$scope.user = user;
+
 					// Set Avatar
 					var argues = JSON.stringify({ email: user.email, size: 200});
 					ServiceHelpers.avatarUrl()
@@ -142,18 +147,16 @@
 				.error(function() {$scope.user = false;});
 		} else {
 			/**
+			 * =====================================================
 			 * ==================== All users ======================
+			 * =====================================================
 			 */
 			$http.get('api/users')
 				.success(function(users) {
 					$scope.users = users;
 
 					angular.forEach($scope.users, function(index){
-						index.meta.forEach(function(mt) {
-							if(mt.meta_key === 'role') {
-								index.role = mt.meta_value;
-							}
-						});
+
 						index._date = new Date(index.created_at);
 
 						// Set avatar

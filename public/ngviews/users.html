@@ -5,7 +5,7 @@
 		<div class="modal-body-content clearfix">
 			<form name="adduserform" ng-submit="addNew()" novalidate>
 				<div class="row">
-					<div class="col-sm-6 aa-input-group" ng-class="{ 'has-error' : newuser.name.$invalid }">
+					<div class="col-sm-6 aa-input-group">
 						<input type="text" ng-model="newuser.name" class="form-control" placeholder="Username" required>
 					</div>
 					<div class="col-sm-6 aa-input-group">
@@ -18,9 +18,9 @@
 					</div>
 
 					<div class="col-sm-6 aa-input-group">
-						<select ng-init="newuser.role = roles[roles.length-1]"
-										ng-model="newuser.role" class="form-control"
-										ng-options="role.value for role in roles track by role.name"></select>
+						<select required multiple="true"
+										ng-model="newuser.roles" class="form-control"
+										ng-options="c.value for c in defaultRoles track by c.name"></select>
 					</div>
 
 				</div>

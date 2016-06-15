@@ -23,7 +23,11 @@
 
 		<footer class="clearfix user-footer-actions">
 			<span class="date">{{usr._date | date: 'MMM dd yyyy'}}</span>
-			<span class="role">{{usr.role}}</span>
+			<ul class="role list-inline">
+				<li ng-repeat="rl in usr.roles">
+					{{rl.label}}
+				</li>
+			</ul>
 			<span><a href="#/users/{{usr.id}}">View</a></span>
 			<span><a href="#/users/edit/{{usr.id}}">Edit</a></span>
 		</footer>

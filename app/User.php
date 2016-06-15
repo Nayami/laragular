@@ -36,14 +36,9 @@ class User extends Authenticatable {
 		}
 
 		return !! $role->intersect($this->roles)->count();
-//		foreach ( $role as $r ) {
-//			if ( $this->hasRole( $r->name ) ) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
+
 	}
+
 
 	public function assign( $role )
 	{

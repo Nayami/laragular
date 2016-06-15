@@ -1284,7 +1284,8 @@ i[data-destroy-modal] {
   margin-top: 3px; }
   .user-footer-actions a {
     margin-left: 5px; }
-  .user-footer-actions .role {
+  .user-footer-actions ul.role {
+    display: inline;
     color: rgba(255, 255, 255, 0.7); }
   .user-footer-actions .date {
     float: left; }
@@ -1467,5 +1468,8 @@ body {
       background-color: #e8e8e8; }
   .btn:focus {
     outline: none; }
+
+ul.list-inline {
+  margin-bottom: 0; }
 
 /*# sourceMappingURL=dashboard.css.map */

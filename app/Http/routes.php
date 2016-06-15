@@ -11,20 +11,22 @@ Route::get( '/dashboard', 'DashboardController@index' );
 
 
 
+
 Route::group( [ 'middleware' => 'auth' ], function () {
 
 	Route::get( 'api/users/{id?}', function ( $id = null ) {
 		if ( $id ) {
-			return \App\User::with( 'meta' )->find( $id );
+			return \App\User::with( 'meta' )->with('roles')->find( $id );
 		}
 
-		return \App\User::with( 'meta' )->get();
+		return \App\User::with( 'meta' )->with('roles')->get();
 	} );
 
 	Route::get( 'api/data/{helper}/{argues?}',
-		function ( $helper, $argues ) {
-			return $helper($argues);
+		function ( $helper, $argues = null ) {
+				return $helper($argues);
 		} );
+
 
 } );
 

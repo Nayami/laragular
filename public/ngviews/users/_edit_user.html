@@ -14,7 +14,7 @@
 				<tr>
 					<th>Username</th>
 					<td class="aa-input-group turqose-group">
-						<input ng-model="edituser.name" type="text" class="form-control" ng-value="user.name"/>
+						<input ng-model="user.name" type="text" class="form-control" ng-value="user.name"/>
 					</td>
 				</tr>
 				<tr>
@@ -23,9 +23,9 @@
 				<tr>
 					<th>Role</th>
 					<td class="aa-input-group turqose-group">
-						<select ng-init="edituser.role = roles[currentRole(user.role)]"
-										ng-model="edituser.role" class="form-control"
-										ng-options="role.value for role in roles track by role.name"></select>
+						<select required multiple="true"
+										ng-model="user.__roles" class="form-control"
+										ng-options="c.value for c in defaultRoles track by c.name"></select>
 					</td>
 				</tr>
 				<tr>
