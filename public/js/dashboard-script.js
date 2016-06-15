@@ -28,7 +28,7 @@
 				templateUrl: 'ngviews/users.html',
 				controller : 'UsersController'
 			})
-			.when('/settings', {
+			.when('/settings/:option_param?', {
 				templateUrl: 'ngviews/settings.html',
 				controller : 'SettingsController'
 			})

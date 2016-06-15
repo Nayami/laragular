@@ -9,6 +9,15 @@
 
           <div class="panel-body">
             Your Application's Landing Page.
+
+            @can('manage_content')
+            <a href="#">Can manage</a>
+            @endcan
+
+            @can('delete_content')
+            <a href="#">Can delete</a>
+            @endcan
+
           </div>
         </div>
       </div>

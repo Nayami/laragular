@@ -6,6 +6,7 @@
     <li>
       <a ng-class="{'active': isActiveDropdown('/users')}" href="#/users"><i class="fa fa-users"></i>Users</a>
     </li>
+    <li role="separator" class="divider"></li>
     <li>
       <a ng-class="{'active': isActiveDropdown('/settings')}" href="#/settings">
         <i class="fa fa-cogs"></i>Settings

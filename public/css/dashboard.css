@@ -1413,6 +1413,16 @@ body {
     border-top: 1px solid rgba(86, 86, 86, 0.46);
     border-bottom: 1px solid #000;
     background-color: rgba(0, 0, 0, 0.55); }
+    #dashboard-sidebar > ul > li.divider {
+      height: 3px;
+      border: none !important;
+      background-color: #183b42;
+      display: block; }
+      #dashboard-sidebar > ul > li.divider:before, #dashboard-sidebar > ul > li.divider:after {
+        content: " ";
+        display: table; }
+      #dashboard-sidebar > ul > li.divider:after {
+        clear: both; }
   #dashboard-sidebar > ul a {
     padding: 10px 15px;
     color: #fff;

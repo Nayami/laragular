@@ -149,6 +149,13 @@ body {
 			border-top       : 1px solid rgba(86, 86, 86, 0.46);
 			border-bottom    : 1px solid #000;
 			background-color : rgba(0, 0, 0, 0.55);
+			&.divider {
+				@include clearfix();
+				height : 3px;
+				border : none !important;
+				background-color: darken($darkTurquose, 10%);
+				display: block;
+			}
 		}
 		a {
 			padding         : 10px 15px;
