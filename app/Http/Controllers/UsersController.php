@@ -13,13 +13,9 @@ use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller {
 
-	public function index()
-	{
-	}
+	public function index(){}
 
-	public function create()
-	{
-	}
+	public function create(){}
 
 	public function store( Request $request )
 	{
@@ -53,13 +49,9 @@ class UsersController extends Controller {
 
 	}
 
-	public function show( $id )
-	{
-	}
+	public function show( $id ){}
 
-	public function edit( $id )
-	{
-	}
+	public function edit( $id ){}
 
 	/**
 	 * @param Request $request
