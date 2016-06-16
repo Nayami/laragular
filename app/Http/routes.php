@@ -11,25 +11,26 @@ Route::get( '/dashboard', 'DashboardController@index' );
 
 
 
-
 Route::group( [ 'middleware' => 'auth' ], function () {
 
-	Route::get( 'api/users/{id?}', function ( $id = null ) {
+	Route::get( 'api/users/{id?}', function ( $id = null) {
 		if ( $id ) {
-			return \App\User::with( 'meta' )->with('roles')->find( $id );
+			return \App\User::with( 'meta' )->with( 'roles' )->find( $id );
 		}
 
-		return \App\User::with( 'meta' )->with('roles')->get();
+		return \App\User::with( 'meta' )->with( 'roles' )->take(8)->get();
 	} );
+
+	Route::get('api/users/paginate/{skip?}/{take?}', function($skip, $take){
+		return \App\User::with( 'meta' )->with( 'roles' )->skip( $skip )->take($take)->get();
+	});
 
 	Route::get( 'api/data/{helper}/{argues?}',
 		function ( $helper, $argues = null ) {
-				return $helper($argues);
+			return $helper( $argues );
 		} );
-
 
 } );
 
-
-Route::resource('restusers', 'UsersController');
-Route::resource('settings', 'SettingsController');
+Route::resource( 'restusers', 'UsersController' );
+Route::resource( 'settings', 'SettingsController' );

@@ -172,6 +172,28 @@
 				.error(function() {$scope.users = false;});
 		}
 
+		$scope.pagedValue = 8;
+		$scope.loadmore = function() {
+
+			$http.get('api/users/paginate/'+$scope.pagedValue+'/8')
+				.success(function(users){
+					angular.forEach(users, function(index){
+						index._date = new Date(index.created_at);
+
+						// Set avatar
+						var argues = JSON.stringify({ email: index.email, size: 40});
+						ServiceHelpers.avatarUrl()
+							.get({ helper: 'user_avatar', argues: argues },
+								function(data) {
+									index.gravatarImage = data.avatar_uri;
+								});
+						$scope.users.push(index);
+					})
+				});
+
+			$scope.pagedValue += 8;
+		}
+
 	}
 
 })();

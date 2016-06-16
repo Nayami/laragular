@@ -1,4 +1,5 @@
 <aside id="dashboard-sidebar" class="col-xs-2" data-ng-controller="AsideController">
+  <div class="sidebar-gap"></div>
   <ul class="list-unstyled">
     <li>
       <a ng-class="{'active': isActive('/')}" href="#/"><i class="fa fa-dashboard"></i>Dashboard</a>

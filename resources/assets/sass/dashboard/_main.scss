@@ -10,21 +10,30 @@ body {
 		width           : 100%;
 		height          : 100%;
 	}
+	> .navbar-static-top {
+		position : fixed;
+		width    : 100%;
+	}
+}
+.dashboard-container-info {
+	padding-top : 70px;
 }
 
 .fafont {
-	display: inline-block;
-	font: normal normal normal 14px/1 FontAwesome !important;
-	font-size: inherit;
-	text-rendering: auto;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	display                 : inline-block;
+	font                    : normal normal normal 14px/1 FontAwesome !important;
+	font-size               : inherit;
+	text-rendering          : auto;
+	-webkit-font-smoothing  : antialiased;
+	-moz-osx-font-smoothing : grayscale;
 }
+
 .alert-backdrop {
 	h1, h2 {
 		margin-top : 0;
 	}
 }
+
 .relative-container {
 	position : relative;
 }
@@ -34,16 +43,16 @@ body {
 	//@include gradient(#000, transparentize($darkTurquose, .8));
 	@include gradient(#000, rgba(126, 65, 0, 0.34));
 	.aa-modal-container {
-		border-radius: 1px;
-		padding-top : 35px;
+		border-radius  : 1px;
+		padding-top    : 35px;
 		padding-bottom : 15px;
 	}
 	input.ng-invalid.ng-touched {
-		box-shadow: 0 0 5px transparentize($dangerColor, .3);
+		box-shadow : 0 0 5px transparentize($dangerColor, .3);
 	}
 
 	input.ng-valid.ng-touched {
-		box-shadow: 0 0 5px transparentize($successColor, .5);
+		box-shadow : 0 0 5px transparentize($successColor, .5);
 	}
 	.alert {
 		border-radius : 1px;
@@ -54,15 +63,15 @@ body {
 	margin-bottom : 10px;
 	@include placeholder-color(transparentize($azure, .3));
 	.form-control {
-		background-color: transparentize($turquoise2, .7);
-		border-color: darken($darkTurquose, 5%);
-		border-radius: 0;
-		color : #fff;
+		background-color : transparentize($turquoise2, .7);
+		border-color     : darken($darkTurquose, 5%);
+		border-radius    : 0;
+		color            : #fff;
 	}
 	select {
 		option {
-			background-color: darken($darkTurquose, 5%);
-			border-color: transparent;
+			background-color : darken($darkTurquose, 5%);
+			border-color     : transparent;
 		}
 	}
 	&.full-width-input {
@@ -72,20 +81,20 @@ body {
 
 .dashboard-main-title {
 	margin-top : 0;
-	color : #fff;
+	color      : #fff;
 }
 
 .aa-input-group {
 	margin-bottom : 10px;
 	.form-control {
-		border-radius: 1px;
-		color : $darkTurquose;
+		border-radius : 1px;
+		color         : $darkTurquose;
 	}
 	&.turqose-group {
 		input[type='text'],
 		input[type='email'], select {
-			border-color: $turquoise2;
-			background-color: $lighturqose;
+			border-color     : $turquoise2;
+			background-color : $lighturqose;
 
 		}
 	}
@@ -94,7 +103,6 @@ body {
 #add-a-user-modal {
 	@extend .default-backend-modal;
 }
-
 
 .dashboard-link {
 	background-color : transparent;
@@ -138,12 +146,15 @@ body {
 #dashboard-sidebar {
 	position         : fixed;
 	left             : 0;
-	top              : 60px;
+	top              : 0;
 	padding          : 0;
 	min-height       : 150px;
 	background-color : rgba(0, 0, 0, 0.55);
 	height           : 100%;
 	overflow-y       : auto;
+	.sidebar-gap {
+		height : 60px;
+	}
 	> ul {
 		> li {
 			border-top       : 1px solid rgba(86, 86, 86, 0.46);
@@ -151,10 +162,10 @@ body {
 			background-color : rgba(0, 0, 0, 0.55);
 			&.divider {
 				@include clearfix();
-				height : 3px;
-				border : none !important;
-				background-color: darken($darkTurquose, 10%);
-				display: block;
+				height           : 3px;
+				border           : none !important;
+				background-color : darken($darkTurquose, 10%);
+				display          : block;
 			}
 		}
 		a {
@@ -190,7 +201,7 @@ body {
 	border-top       : 1px solid transparentize($turquoise2, .5);
 	background-color : transparentize($darkTurquose, .4);
 	box-shadow       : 0 5px 10px rgba(0, 0, 0, 0.26);
-	border-radius: 1px;
+	border-radius    : 1px;
 	a {
 		color : $turquoise;
 		&:hover {
@@ -199,9 +210,9 @@ body {
 	}
 
 	i.fa-remove {
-		float : right;
+		float  : right;
 		cursor : pointer;
-		&:hover{
+		&:hover {
 			color : $dangerColor;
 		}
 	}
@@ -211,16 +222,15 @@ body {
 	@extend .section-item;
 }
 
-
 .btn {
-	border-radius: 1px;
+	border-radius : 1px;
 	&.btn-default {
-		background-color: rgba(211, 211, 211, 0.72);
-		&:hover{
-			background-color: #e8e8e8;
+		background-color : rgba(211, 211, 211, 0.72);
+		&:hover {
+			background-color : #e8e8e8;
 		}
 	}
-	&:focus{
+	&:focus {
 		outline : none;
 	}
 }

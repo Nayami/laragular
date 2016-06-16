@@ -17,6 +17,11 @@ class UsersController extends Controller {
 
 	public function create(){}
 
+	/**
+	 * @param Request $request
+	 *
+	 * @return array|string
+	 */
 	public function store( Request $request )
 	{
 		$all = $request->all();
