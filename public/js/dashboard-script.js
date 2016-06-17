@@ -330,21 +330,10 @@
 			 */
 			$http.get('api/users')
 				.success(function(users) {
-					$scope.users = users;
-
-					angular.forEach($scope.users, function(index){
-
+					angular.forEach(users, function(index){
 						index._date = new Date(index.created_at);
-
-						// Set avatar
-						var argues = JSON.stringify({ email: index.email, size: 40});
-						ServiceHelpers.avatarUrl()
-							.get({ helper: 'user_avatar', argues: argues },
-								function(data) {
-									index.gravatarImage = data.avatar_uri;
-								});
-
-					})
+					});
+					$scope.users = users;
 				})
 				.error(function() {$scope.users = false;});
 		}
@@ -356,14 +345,6 @@
 				.success(function(users){
 					angular.forEach(users, function(index){
 						index._date = new Date(index.created_at);
-
-						// Set avatar
-						var argues = JSON.stringify({ email: index.email, size: 40});
-						ServiceHelpers.avatarUrl()
-							.get({ helper: 'user_avatar', argues: argues },
-								function(data) {
-									index.gravatarImage = data.avatar_uri;
-								});
 						$scope.users.push(index);
 					})
 				});
