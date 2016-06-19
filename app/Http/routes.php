@@ -34,3 +34,4 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
 Route::resource( 'restusers', 'UsersController' );
 Route::resource( 'settings', 'SettingsController' );
+Route::resource( 'api/aclreq', 'RolesPermissionsController' );

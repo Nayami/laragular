@@ -1,6 +1,65 @@
 <div id="settings-scope">
 	<h1 class="dashboard-main-title">Settings</h1>
 	<section class="slide-right clearfix relative-container" ng-if="allsettings">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem cum, distinctio, dolore doloribus ea fuga ipsum molestiae natus officiis quis quos rem reprehenderit similique sit temporibus tenetur veniam voluptatibus?
+
+
+			<div class="clearfix">
+				<ul class="nav nav-tabs" role="tablist">
+					<li ng-class="{'active': activeTab === 'global-tab'}">
+						<a ng-click="switchTab('global-tab')" data-toggle="tab">Global</a>
+					</li>
+					<li ng-class="{'active': activeTab === 'acl-tab'}">
+						<a ng-click="switchTab('acl-tab')" data-toggle="tab">ACL</a>
+					</li>
+					<li ng-class="{'active': activeTab === 'socials-tab'}">
+						<a ng-click="switchTab('socials-tab')" data-toggle="tab">Socials</a>
+					</li>
+					<li ng-class="{'active': activeTab === 'tp-api-tab'}">
+						<a ng-click="switchTab('tp-api-tab')" data-toggle="tab">API</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div ng-class="{'in active': activeTab === 'global-tab'}" class="tab-pane fade">
+						<h4 class="tab-title">Glob</h4>
+					</div>
+
+					<!-- ACL TAB -->
+					<div ng-class="{'in active': activeTab === 'acl-tab'}" class="tab-pane fade acl-tabcontent">
+						<h4 class="tab-title">Access Control List</h4>
+
+						<header class="row head-btns">
+							<div class="col-xs-6">
+								<div class="btn-group btn-group-justified ghostly-chex-input-group" role="group">
+									<div class="btn-group" role="group">
+										<label ng-class="{'btn-primary':aclTpl === templates.aclAssign}" for="acl-assign" class="btn">Assign permissions to roles</label>
+										<input id="acl-assign" type="radio" ng-model="aclTpl" ng-value="templates.aclAssign">
+									</div>
+									<div class="btn-group" role="group">
+										<label ng-class="{'btn-primary':aclTpl === templates.aclCreate}" for="acl-create" class="btn">Manage roles and permissions</label>
+										<input id="acl-create" type="radio" ng-model="aclTpl" ng-value="templates.aclCreate">
+									</div>
+								</div>
+							</div>
+						</header>
+
+						<div class="slide-top acl-settings-container" ng-include="aclTpl"></div>
+					</div>
+					<!-- ACL TAB ENDS -->
+
+
+					<div ng-class="{'in active': activeTab === 'socials-tab'}" class="tab-pane fade">
+						<h4 class="tab-title">Soc</h4>
+					</div>
+					<div ng-class="{'in active': activeTab === 'tp-api-tab'}" class="tab-pane fade">
+						<h4 class="tab-title">Api</h4>
+					</div>
+				</div>
+			</div>
+
+			<footer class="clearfix text-right footer-actions">
+
+			</footer>
+
 	</section>
 </div>

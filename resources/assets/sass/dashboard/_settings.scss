@@ -1,5 +1,79 @@
+.ghostly-chex-input-group {
+	input[type=radio],input[type=checkbox] {
+		display: none;
+	}
+}
 #settings-scope {
+	.tab-title {
+		margin-top : 0;
+	}
+	footer {
+		margin-top : 15px;
+	}
 	section {
 		@extend .section-item;
+	}
+	.nav-tabs {
+		width   : 15%;
+		display : block;
+		float   : left;
+		border  : none;
+		li {
+			display : block;
+			float   : none;
+			margin  : 0;
+			&.active {
+				a {
+					border-right-color: transparent !important;
+					background-color : #ededed;
+					color : $text-color;
+				}
+			}
+			a {
+				@include transition();
+				margin        : 0;
+				border-radius : 0;
+				cursor        : pointer;
+				&:hover{
+					background-color: #fafafa;
+				}
+			}
+		}
+	}
+	.tab-content {
+		width            : 85%;
+		display          : block;
+		float            : right;
+		background-color : #ededed;
+		padding          : 15px;
+		> .tab-pane {
+			background-color : #fafafa;
+			padding          : 15px;
+			color            : $text-color;
+			min-height : 150px;
+			@include transition(.2s, opacity);
+			&.active-add,
+			&.active-remove-active {
+				opacity : 0;
+			}
+		}
+	}
+}
+
+.acl-settings-container {
+	padding-top : 15px;
+}
+.form-footer {
+	margin-top : 10px;
+}
+.acl-tabcontent {
+	min-height : 300px !important;
+	@extend .db-inputs;
+
+	.head-btns {
+		margin-bottom : 10px;
+		.btn:not(.btn-primary) {
+			border :1px solid #eee;
+		}
 	}
 }

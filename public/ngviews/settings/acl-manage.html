@@ -1,0 +1,30 @@
+<h4 class="tab-title">Create Role / Permisision</h4>
+<form name="addroleprmission" novalidate ng-submit="createRolePermission()" ng-controller="SettingsController">
+	<div class="row">
+		<div class="col-sm-4">
+			<label for="acl-roleperm-name">Name</label>
+			<input id="acl-roleperm-name" required type="text" ng-model="newRolePermission.name" class="form-control">
+		</div>
+		<div class="col-sm-4">
+			<label for="acl-roleperm-label">Label</label>
+			<input id="acl-roleperm-label" required type="text" ng-model="newRolePermission.label" class="form-control">
+		</div>
+		<div class="col-sm-4">
+			<label for="acl-roleperm-type">Type</label>
+			<select required id="acl-roleperm-type" ng-model="newRolePermission.type" class="form-control">
+				<option ng-value="role">Role</option>
+				<option ng-selected="true" ng-value="permission">Permission</option>
+			</select>
+		</div>
+	</div>
+
+	<footer class="form-footer">
+		<button ng-disabled="addroleprmission.$invalid" type="submit" class="btn btn-default btn-sm">Create</button>
+	</footer>
+
+</form>
+
+<div class="clearfix">
+	<hr>
+	<h4 class="tab-title">Edit / Delete</h4>
+</div>

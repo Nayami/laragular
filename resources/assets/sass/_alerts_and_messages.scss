@@ -46,7 +46,6 @@
 	}
 }
 
-
 body.aa-modal-overlay {
 	overflow-y : hidden;
 }
@@ -54,10 +53,10 @@ body.aa-modal-overlay {
 i[data-destroy-modal] {
 	position  : absolute;
 	right     : 10px;
-	top : 10px;
+	top       : 10px;
 	cursor    : pointer;
 	font-size : 18px;
-	z-index: 1;
+	z-index   : 1;
 	&:hover {
 		color : $dangerColor;
 	}
@@ -199,3 +198,18 @@ i[data-destroy-modal] {
  */
 // selector | width | perspective | origin
 //@include modalMix('#related-modal-id', 500, 700, top);
+
+/**
+ * ==================== Notices ======================
+ */
+.notice-container {
+	@include transition();
+	position      : absolute;
+	right         : -101%;
+	top           : 63px;
+	border-radius : 1px;
+	margin-bottom : 10px;
+	&.show {
+		right : 1%;
+	}
+}

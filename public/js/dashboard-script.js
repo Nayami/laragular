@@ -44,14 +44,58 @@
 	angular.module('dashboardModule')
 		.controller('SettingsController', SettingsController);
 
-	SettingsController.$inject = ['$scope', '$http'];
-	function SettingsController($scope, $http) {
+	SettingsController.$inject = ['$scope', '$http', 'appConst'];
+	function SettingsController($scope, $http, appConst) {
 
 		$http.get('settings')
 			.success(function(settings){
 				$scope.allsettings = settings;
 			});
 
+		$scope.activeTab = 'acl-tab';
+		$scope.switchTab = function(tab) {
+			return $scope.activeTab = tab;
+		};
+
+		// ?i=1000
+		// ?i=1001
+		$scope.templates = {
+			//aclAssign : 'ngviews/settings/acl-assign.html',
+			//aclCreate : 'ngviews/settings/acl-manage.html',
+			aclAssign : 'ngviews/settings/acl-assign.html?i=1000',
+			aclCreate : 'ngviews/settings/acl-manage.html?i=1000',
+		};
+		$scope.aclTpl = $scope.templates.aclAssign;
+
+		/**
+		 * ==================== Store ACL relations ======================
+		 */
+		$scope.storeAclSettings = function(){
+			var data = $scope.aclSettings;
+		};
+		/**
+		 * ==================== Create Role/Permission ======================
+		 */
+		$scope.newRolePermission = {
+			type : 'permission'
+		};
+		$scope.createRolePermission = function(){
+			$http.post('api/aclreq', $scope.newRolePermission)
+				.success(function(response){
+					switch (response) {
+						case 'exists':
+							appConst.launchModalAlert('info', 'Role with this name already exists');
+							break;
+						case 'success':
+							appConst.flashNotice('success', $scope.newRolePermission.label+' successfully created');
+							$scope.newRolePermission.name = '';
+							$scope.newRolePermission.label = '';
+							break;
+						default:
+							console.log('something wrong');
+					}
+				});
+		};
 
 	}
 
@@ -79,17 +123,25 @@
 ;(function() {
 	"use strict";
 
-	var modalAlert = function(itemClass, msg) {
-		return "\
+	function removeNotice (elem){
+		return setTimeout(function(){
+			elem.remove();
+		}, 300);
+	}
+
+	var AE = angular.element,
+		_BODY = AE('body'),
+		modalAlert = function(itemClass, msg) {
+			return "\
 			<div class='alert-backdrop'>\
 				<div class='alert alert-" + itemClass + "'>\
 				<p>" + msg + "</p>\
 				</div>\
 			</div>";
-	},
+		},
 		modalConfirm = function(confirmid, itemClass, msg) {
 			return "\
-			<div class='alert-backdrop' id='"+confirmid+"'>\
+			<div class='alert-backdrop' id='" + confirmid + "'>\
 				<div class='alert alert-" + itemClass + "'>\
 				<h2>" + msg + "</h2>\
 				<div class='btn-group btn-group-justified' role='group'>\
@@ -102,38 +154,57 @@
 				</div>\
 				</div>\
 			</div>";
+		},
+		noticeHtml = function(itemClass, msg) {
+			return "\
+			<div class='notice-container alert alert-"+itemClass+"'>\
+				<p>"+msg+"</p>\
+			</div>\
+			";
 		};
 
 
 	angular.module('dashboardModule')
 		.constant('appConst', {
-			csrf            : angular.element.find('meta[name="csrf-roken"]')[0].content,
+			csrf: AE.find('meta[name="csrf-roken"]')[0].content,
+
 			launchModalAlert: function(itemClass, msg) {
-				var bodyElem = angular.element('body');
-				bodyElem.prepend(modalAlert(itemClass, msg));
+				_BODY.prepend(modalAlert(itemClass, msg));
 				setTimeout(function() {
-					bodyElem.find('.alert-backdrop').addClass('show');
+					_BODY.find('.alert-backdrop').addClass('show');
 				}, 100);
 			},
-			modalConfirm : function(confirmid, itemClass, msg){
-				var bodyElem = angular.element('body');
-				bodyElem.prepend(modalConfirm(confirmid, itemClass, msg));
+
+			modalConfirm: function(confirmid, itemClass, msg) {
+				_BODY.prepend(modalConfirm(confirmid, itemClass, msg));
 				setTimeout(function() {
-					bodyElem.find('.alert-backdrop').addClass('show');
+					_BODY.find('.alert-backdrop').addClass('show');
 				}, 100);
 			},
+
 			detachModalEvent: function(modal) {
-				var modalOverlay = angular.element(modal),
-					relatedTrigger = angular.element('[data-related-modal="' + modal + '"]') || null,
+				var modalOverlay = AE(modal),
+					relatedTrigger = AE('[data-related-modal="' + modal + '"]') || null,
 					type = relatedTrigger.length > 0 ? relatedTrigger.attr('data-modal-trigger') : null;
 
 				modalOverlay.removeClass('show');
 				setTimeout(function() {
 					modalOverlay.css('display', 'none');
-					angular.element(window).trigger('aaModalClosed', [type, relatedTrigger])
+					AE(window).trigger('aaModalClosed', [type, relatedTrigger])
 				}, 300);
+			},
 
+			flashNotice: function(noticeClass, message) {
+				_BODY.prepend(noticeHtml(noticeClass, message));
+				setTimeout(function() {
+					_BODY.find('.notice-container').addClass('show');
+					setTimeout(function(){
+						_BODY.find('.notice-container').removeClass('show');
+						removeNotice(_BODY.find('.notice-container'));
+					}, 4000);
+				}, 200);
 			}
+
 		});
 
 

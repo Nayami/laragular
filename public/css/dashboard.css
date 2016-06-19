@@ -1234,6 +1234,19 @@ i[data-destroy-modal] {
  * ==================== Modals define and config ======================
  * 12.06.2016
  */
+/**
+ * ==================== Notices ======================
+ */
+.notice-container {
+  transition: all, 0.3s;
+  position: absolute;
+  right: -101%;
+  top: 63px;
+  border-radius: 1px;
+  margin-bottom: 10px; }
+  .notice-container.show {
+    right: 1%; }
+
 #users-handler .userpic-sm {
   width: 40px;
   float: left; }
@@ -1294,6 +1307,64 @@ i[data-destroy-modal] {
   position: absolute;
   right: 0;
   top: 0; }
+
+.ghostly-chex-input-group input[type=radio], .ghostly-chex-input-group input[type=checkbox] {
+  display: none; }
+
+#settings-scope .tab-title {
+  margin-top: 0; }
+
+#settings-scope footer {
+  margin-top: 15px; }
+
+#settings-scope .nav-tabs {
+  width: 15%;
+  display: block;
+  float: left;
+  border: none; }
+  #settings-scope .nav-tabs li {
+    display: block;
+    float: none;
+    margin: 0; }
+    #settings-scope .nav-tabs li.active a {
+      border-right-color: transparent !important;
+      background-color: #ededed;
+      color: #363e45; }
+    #settings-scope .nav-tabs li a {
+      transition: all, 0.3s;
+      margin: 0;
+      border-radius: 0;
+      cursor: pointer; }
+      #settings-scope .nav-tabs li a:hover {
+        background-color: #fafafa; }
+
+#settings-scope .tab-content {
+  width: 85%;
+  display: block;
+  float: right;
+  background-color: #ededed;
+  padding: 15px; }
+  #settings-scope .tab-content > .tab-pane {
+    background-color: #fafafa;
+    padding: 15px;
+    color: #363e45;
+    min-height: 150px;
+    transition: opacity, 0.2s; }
+    #settings-scope .tab-content > .tab-pane.active-add, #settings-scope .tab-content > .tab-pane.active-remove-active {
+      opacity: 0; }
+
+.acl-settings-container {
+  padding-top: 15px; }
+
+.form-footer {
+  margin-top: 10px; }
+
+.acl-tabcontent {
+  min-height: 300px !important; }
+  .acl-tabcontent .head-btns {
+    margin-bottom: 10px; }
+    .acl-tabcontent .head-btns .btn:not(.btn-primary) {
+      border: 1px solid #eee; }
 
 body {
   overflow-x: hidden; }
@@ -1479,5 +1550,14 @@ body {
 
 ul.list-inline {
   margin-bottom: 0; }
+
+.db-inputs .form-control, .acl-tabcontent .form-control {
+  border-radius: 1px; }
+
+.db-inputs input.ng-invalid.ng-touched, .acl-tabcontent input.ng-invalid.ng-touched {
+  background-color: rgba(223, 67, 67, 0.3); }
+
+.db-inputs input.ng-valid.ng-touched, .acl-tabcontent input.ng-valid.ng-touched {
+  background-color: rgba(45, 165, 25, 0.3); }
 
 /*# sourceMappingURL=dashboard.css.map */

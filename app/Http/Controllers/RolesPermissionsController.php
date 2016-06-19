@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Setting;
+use App\Permission;
+use App\Role;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class SettingsController extends Controller {
+class RolesPermissionsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -16,7 +17,7 @@ class SettingsController extends Controller {
 	 */
 	public function index()
 	{
-		return Setting::all();
+		//
 	}
 
 	/**
@@ -38,7 +39,24 @@ class SettingsController extends Controller {
 	 */
 	public function store( Request $request )
 	{
+		$input = $request->all();
 
+		switch(strtolower($input['type'])) {
+			case 'role':
+				if(Role::whereName($input['name'])->first())
+					return response('exists');
+				Role::create($request->except('type'));
+				return response('success');
+				break;
+			case 'permission':
+				if(Permission::whereName($input['name'])->first())
+					return response('exists');
+				Permission::create($request->except('type'));
+				return response('success');
+				break;
+			default :
+				return response('fail');
+		}
 	}
 
 	/**

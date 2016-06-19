@@ -238,3 +238,16 @@ body {
 ul.list-inline {
 	margin-bottom : 0;
 }
+
+.db-inputs {
+	.form-control {
+		border-radius: 1px;
+	}
+	input.ng-invalid.ng-touched {
+		background-color : transparentize($dangerColor, .7);
+	}
+
+	input.ng-valid.ng-touched {
+		background-color : transparentize($successColor, .7);
+	}
+}
