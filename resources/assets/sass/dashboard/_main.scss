@@ -251,3 +251,23 @@ ul.list-inline {
 		background-color : transparentize($successColor, .7);
 	}
 }
+
+.display-table {
+	display : table;
+	width : 100%;
+	.table-cell {
+		display : table-cell;
+	}
+}
+
+
+a.btn {
+	&.btn-default {
+		color : $text-color !important;
+	}
+	&.btn-warning,
+	&.btn-primary,
+	&.btn-danger {
+		color : #fff !important;
+	}
+}

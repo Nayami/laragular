@@ -1,8 +1,9 @@
 .ghostly-chex-input-group {
-	input[type=radio],input[type=checkbox] {
-		display: none;
+	input[type=radio], input[type=checkbox] {
+		display : none;
 	}
 }
+
 #settings-scope {
 	.tab-title {
 		margin-top : 0;
@@ -24,9 +25,9 @@
 			margin  : 0;
 			&.active {
 				a {
-					border-right-color: transparent !important;
-					background-color : #ededed;
-					color : $text-color;
+					border-right-color : transparent !important;
+					background-color   : #ededed;
+					color              : $text-color;
 				}
 			}
 			a {
@@ -34,8 +35,8 @@
 				margin        : 0;
 				border-radius : 0;
 				cursor        : pointer;
-				&:hover{
-					background-color: #fafafa;
+				&:hover {
+					background-color : #fafafa;
 				}
 			}
 		}
@@ -50,7 +51,7 @@
 			background-color : #fafafa;
 			padding          : 15px;
 			color            : $text-color;
-			min-height : 150px;
+			min-height       : 150px;
 			@include transition(.2s, opacity);
 			&.active-add,
 			&.active-remove-active {
@@ -63,9 +64,11 @@
 .acl-settings-container {
 	padding-top : 15px;
 }
+
 .form-footer {
 	margin-top : 10px;
 }
+
 .acl-tabcontent {
 	min-height : 300px !important;
 	@extend .db-inputs;
@@ -73,7 +76,33 @@
 	.head-btns {
 		margin-bottom : 10px;
 		.btn:not(.btn-primary) {
-			border :1px solid #eee;
+			border : 1px solid #eee;
+		}
+	}
+}
+
+.acl-permission-container,
+.acl-role-container {
+	.table-cell {
+		vertical-align : middle;
+	}
+	/*Desktop*/
+	@media (min-width : 952px) {
+		.cell-id {
+			width : 70px;
+		}
+		.cell-name {
+			min-width : 150px;
+		}
+	}
+	.cell-actions {
+		width : 100px;
+		a.btn {
+			padding : 0 10px;
+			i {
+				float       : none !important;
+				line-height : 25px;
+			}
 		}
 	}
 }

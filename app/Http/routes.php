@@ -30,8 +30,10 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 			return $helper( $argues );
 		} );
 
-} );
+	Route::resource( 'restusers', 'UsersController' );
+	Route::resource( 'settings', 'SettingsController' );
+	Route::resource( 'api/aclreq', 'RolesPermissionsController' );
 
-Route::resource( 'restusers', 'UsersController' );
-Route::resource( 'settings', 'SettingsController' );
-Route::resource( 'api/aclreq', 'RolesPermissionsController' );
+	Route::delete( 'api/aclreq/destroy_permission/{id?}', 'RolesPermissionsController@destroyPermission' );
+
+} );

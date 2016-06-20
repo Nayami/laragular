@@ -4,107 +4,111 @@ namespace App\Http\Controllers;
 
 use App\Permission;
 use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class RolesPermissionsController extends Controller {
 
 	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
+	 * @return mixed
 	 */
 	public function index()
 	{
-		//
+		// @TODO: skip developer role and debug
+		return [
+			'roles'       => Role::with( 'permissions' )->get(),
+			'permissions' => Permission::all(),
+		];
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function create()
 	{
-		//
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * @param Request $request
 	 *
-	 * @param  \Illuminate\Http\Request $request
-	 *
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public function store( Request $request )
 	{
 		$input = $request->all();
 
-		switch(strtolower($input['type'])) {
+		switch ( strtolower( $input[ 'type' ] ) ) {
 			case 'role':
-				if(Role::whereName($input['name'])->first())
-					return response('exists');
-				Role::create($request->except('type'));
-				return response('success');
+				if ( Role::whereName( $input[ 'name' ] )->first() )
+					return response( [ 'status' => 'exists' ] );
+				$role = Role::create( $request->except( 'type' ) );
+
+				return response( [
+					'status' => 'success',
+					'_role'  => Role::with( 'permissions' )->find( $role->id ),
+				] );
+
 				break;
 			case 'permission':
-				if(Permission::whereName($input['name'])->first())
-					return response('exists');
-				Permission::create($request->except('type'));
-				return response('success');
+				if ( Permission::whereName( $input[ 'name' ] )->first() )
+					return response( [ 'status' => 'exists' ] );
+				$permission = Permission::create( $request->except( 'type' ) );
+
+				return response( [
+					'status'      => 'success',
+					'_permission' => $permission
+				] );
 				break;
 			default :
-				return response('fail');
+				return response( [ 'status' => 'fail' ] );
 		}
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function show( $id )
 	{
-		//
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function edit( $id )
 	{
-		//
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function update( Request $request, $id )
 	{
-		//
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * @param $id
 	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public function destroy( $id )
 	{
-		//
+		$auth_user = Auth::user();
+		$role      = Role::find( $id );
+		$user      = User::find( $auth_user->id );
+		if ( $user->hasRole( $role->name ) ) {
+			return response( [ 'status' => 'self_role' ] );
+		}
+		$role->delete();
+
+		return response( [ 'status' => 'success' ] );
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+	 */
+	public function destroyPermission( $id )
+	{
+		$auth_user  = Auth::user();
+		$user       = User::find( $auth_user->id );
+		$permission = Permission::find( $id );
+		if ( $user->can( $permission->name ) ) {
+			return response( [ 'status' => 'self_permission' ] );
+		}
+		$permission->delete();
+
+		return response( [ 'status' => 'success' ] );
 	}
 }

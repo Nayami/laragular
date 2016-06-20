@@ -24,11 +24,12 @@ class User extends Authenticatable {
 	 */
 	public function getGravatarImageAttribute()
 	{
-		return $this->appends['gravatar_image'] = get_gravatar($this->email, 40);
+		return $this->appends[ 'gravatar_image' ] = get_gravatar( $this->email, 40 );
 	}
 
 	/**
 	 * Crypting password befor save
+	 *
 	 * @param $password
 	 */
 	public function setPasswordAttribute( $password )
@@ -53,23 +54,33 @@ class User extends Authenticatable {
 	public function hasRole( $role )
 	{
 		if ( is_string( $role ) ) {
-			return $this->roles()->contains( 'name', $role );
+			return $this->roles->contains( 'name', $role );
 		}
 
-		return !! $role->intersect($this->roles)->count();
+		return ! ! $role->intersect( $this->roles )->count();
 
 	}
 
+	public function userHasRole( $check_role )
+	{
+		$roles = $this->roles()->get();
+		foreach ( $roles as $role ) {
+			if($role->name === $check_role)
+				return true;
+		}
+
+		return false;
+	}
 
 	public function assign( $role )
 	{
 		if ( is_string( $role ) ) {
 			return $this->roles()->save(
-				Role::whereName($role)->firstOrFail()
+				Role::whereName( $role )->firstOrFail()
 			);
 		}
 
-		return $this->roles()->save($role);
+		return $this->roles()->save( $role );
 	}
 
 }

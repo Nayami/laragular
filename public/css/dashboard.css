@@ -1366,6 +1366,30 @@ i[data-destroy-modal] {
     .acl-tabcontent .head-btns .btn:not(.btn-primary) {
       border: 1px solid #eee; }
 
+.acl-permission-container,
+.acl-role-container {
+  /*Desktop*/ }
+  .acl-permission-container .table-cell,
+  .acl-role-container .table-cell {
+    vertical-align: middle; }
+  @media (min-width: 952px) {
+    .acl-permission-container .cell-id,
+    .acl-role-container .cell-id {
+      width: 70px; }
+    .acl-permission-container .cell-name,
+    .acl-role-container .cell-name {
+      min-width: 150px; } }
+  .acl-permission-container .cell-actions,
+  .acl-role-container .cell-actions {
+    width: 100px; }
+    .acl-permission-container .cell-actions a.btn,
+    .acl-role-container .cell-actions a.btn {
+      padding: 0 10px; }
+      .acl-permission-container .cell-actions a.btn i,
+      .acl-role-container .cell-actions a.btn i {
+        float: none !important;
+        line-height: 25px; }
+
 body {
   overflow-x: hidden; }
   body:before {
@@ -1559,5 +1583,17 @@ ul.list-inline {
 
 .db-inputs input.ng-valid.ng-touched, .acl-tabcontent input.ng-valid.ng-touched {
   background-color: rgba(45, 165, 25, 0.3); }
+
+.display-table {
+  display: table;
+  width: 100%; }
+  .display-table .table-cell {
+    display: table-cell; }
+
+a.btn.btn-default {
+  color: #363e45 !important; }
+
+a.btn.btn-warning, a.btn.btn-primary, a.btn.btn-danger {
+  color: #fff !important; }
 
 /*# sourceMappingURL=dashboard.css.map */

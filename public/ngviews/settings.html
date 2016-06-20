@@ -32,11 +32,15 @@
 							<div class="col-xs-6">
 								<div class="btn-group btn-group-justified ghostly-chex-input-group" role="group">
 									<div class="btn-group" role="group">
-										<label ng-class="{'btn-primary':aclTpl === templates.aclAssign}" for="acl-assign" class="btn">Assign permissions to roles</label>
-										<input id="acl-assign" type="radio" ng-model="aclTpl" ng-value="templates.aclAssign">
+										<label ng-class="{'btn-primary':aclTpl === templates.aclOverview}" for="acl-assign" class="btn">
+											Overview
+										</label>
+										<input id="acl-assign" type="radio" ng-model="aclTpl" ng-value="templates.aclOverview">
 									</div>
 									<div class="btn-group" role="group">
-										<label ng-class="{'btn-primary':aclTpl === templates.aclCreate}" for="acl-create" class="btn">Manage roles and permissions</label>
+										<label ng-class="{'btn-primary':aclTpl === templates.aclCreate}" for="acl-create" class="btn">
+											Manage roles and permissions
+										</label>
 										<input id="acl-create" type="radio" ng-model="aclTpl" ng-value="templates.aclCreate">
 									</div>
 								</div>

@@ -60,6 +60,23 @@
 				}, 100);
 			},
 
+			mconf : function(confirmid, itemClass, msg){
+				return "\
+			<div class='alert-backdrop' id='"+confirmid+"'>\
+				<div class='alert alert-" + itemClass + "'>\
+				<h2>" + msg + "</h2>\
+				<div class='btn-group btn-group-justified' role='group'>\
+					<div class='btn-group' role='group'>\
+						<button data-confirm='confirm' type='button' class='btn btn-default'>I'm sure</button>\
+					</div>\
+					<div class='btn-group' role='group'>\
+						<button data-confirm='cancel' type='button' class='btn btn-default'>I've changed my mind</button>\
+					</div>\
+				</div>\
+				</div>\
+			</div>"
+			},
+
 			detachModalEvent: function(modal) {
 				var modalOverlay = AE(modal),
 					relatedTrigger = AE('[data-related-modal="' + modal + '"]') || null,
