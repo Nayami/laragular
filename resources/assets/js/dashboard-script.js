@@ -189,5 +189,10 @@ jQuery(document).ready(function ($){
 
 	// !Modals and alerts ends
 
-
+	$('.s2-select-tags').waitUntilExists(function(){
+		var that = $(this);
+		that.select2({
+			tags: true
+		});
+	});
 });

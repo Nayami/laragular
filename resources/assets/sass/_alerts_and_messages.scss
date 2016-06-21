@@ -204,11 +204,12 @@ i[data-destroy-modal] {
  */
 .notice-container {
 	@include transition();
-	position      : absolute;
+	position      : fixed;
 	right         : -101%;
 	top           : 63px;
 	border-radius : 1px;
 	margin-bottom : 10px;
+	z-index: 1;
 	&.show {
 		right : 1%;
 	}

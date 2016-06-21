@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
   <!-- Styles -->
-  <link href="{{ url('css/bootstrap.css') }}" rel="stylesheet">
+  <link href="{{ url('css/bootstrap_and_libs.css') }}" rel="stylesheet">
   <link href="{{ url('css/dashboard.css') }}" rel="stylesheet">
 </head>
 <body id="dashboard-layout">
@@ -64,7 +64,7 @@
 
 <!-- JavaScripts -->
 <script src="{{ url('js/jquery.js') }}"></script>
-<script src="{{ url('js/bootstrap.js') }}"></script>
+<script src="{{ url('js/bootstrap_and_libs.js') }}"></script>
 <script src="{{ url('js/angular-compiled.js') }}"></script>
 <script src="{{ url('js/dashboard-script.js') }}"></script> <!-- Angular mvc and userscript -->
 

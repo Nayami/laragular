@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RolesPermissionsController extends Controller {
 
@@ -72,8 +73,48 @@ class RolesPermissionsController extends Controller {
 	{
 	}
 
+	/**
+	 * @param Request $request
+	 * @param $id
+	 *
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+	 */
 	public function update( Request $request, $id )
 	{
+		$input = $request->all();
+		if ( empty( $input[ 'name' ] ) || empty( $input[ 'label' ] ) )
+			return response( [ 'status' => 'empty_fields' ] );
+
+		if ( $input[ 'type' ] === 'role' ) {
+			$role = Role::find( $id );
+			$role->update( [
+				'name'  => $input[ 'name' ],
+				'label' => $input[ 'label' ],
+			] );
+
+			$query_permissions = $input['permissions'];
+
+			DB::table( 'permission_role' )
+			  ->where( 'role_id', '=', $id )
+			  ->delete();
+			foreach ( $query_permissions as $q_p ) {
+				$_permission = Permission::whereName($q_p['name'])->first();
+				$role->assign($_permission);
+			}
+
+		}
+
+		if ( $input[ 'type' ] === 'permission' ) {
+			$permission = Permission::find( $id );
+			$permission->update( [
+				'name'  => $input[ 'name' ],
+				'label' => $input[ 'label' ],
+			] );
+		}
+
+		return response( [
+			'status' => 'success'
+		] );
 	}
 
 	/**

@@ -20,9 +20,9 @@
 		// ?i=1000
 		// ?i=1001
 		$scope.templates = {
-			aclOverview: 'ngviews/settings/acl-assign.html',
+			aclOverview: 'ngviews/settings/acl-overview.html',
 			aclCreate: 'ngviews/settings/acl-manage.html',
-			//aclOverview: 'ngviews/settings/acl-assign.html?i=1001',
+			//aclOverview: 'ngviews/settings/acl-overview.html?i=1001',
 			//aclCreate: 'ngviews/settings/acl-manage.html?i=1001',
 		};
 		//$scope.aclTpl = $scope.templates.aclOverview;
@@ -52,7 +52,7 @@
 						_label = $scope.newRolePermission.label,
 						checkType = _type.toLowerCase();
 					if (response.status === 'exists') {
-						appConst.launchModalAlert('info', _type +' with name \''+_label+'\' already exists');
+						appConst.launchModalAlert('info', _type +' with name '+_label+' already exists');
 					}
 					if (response.status === 'success') {
 						if (checkType === 'role') {
@@ -70,7 +70,20 @@
 
 		};
 
-		// Edit Role
+		// Edit Role/Permisison
+		$scope.editRolePermission = function(item, type) {
+			item.type = type;
+
+			$http.patch('api/aclreq/'+item.id, item)
+				.success(function(response){
+
+					if(response.status === 'empty_fields')
+						appConst.launchModalAlert('warning','The fields cannot be blank');
+
+					if(response.status === 'success')
+						appConst.flashNotice('success', '<i class="fa fa-info-circle"></i> Updated');
+				});
+		};
 
 		// Destroy Role
 		$scope.destroyRole = function(item) {

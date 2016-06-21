@@ -1239,11 +1239,12 @@ i[data-destroy-modal] {
  */
 .notice-container {
   transition: all, 0.3s;
-  position: absolute;
+  position: fixed;
   right: -101%;
   top: 63px;
   border-radius: 1px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  z-index: 1; }
   .notice-container.show {
     right: 1%; }
 
@@ -1595,5 +1596,11 @@ a.btn.btn-default {
 
 a.btn.btn-warning, a.btn.btn-primary, a.btn.btn-danger {
   color: #fff !important; }
+
+a.btn.btn-sm {
+  padding: 3px 10px; }
+
+.s2-select-tags-wrap > * {
+  width: 100% !important; }
 
 /*# sourceMappingURL=dashboard.css.map */

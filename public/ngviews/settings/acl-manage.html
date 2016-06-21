@@ -1,5 +1,5 @@
 <h4 class="tab-title">Create Role / Permisision</h4>
-<form name="addroleprmission" novalidate ng-submit="createRolePermission()" ng-controller="SettingsController">
+<form name="addroleprmission" novalidate ng-submit="createRolePermission()">
 	<div class="row">
 		<div class="col-sm-4">
 			<label for="acl-roleperm-name">Name</label>
@@ -20,79 +20,88 @@
 	<footer class="form-footer">
 		<button ng-disabled="addroleprmission.$invalid" type="submit" class="btn btn-default btn-sm">Create</button>
 	</footer>
-
-	<div class="clearfix">
-		<hr>
-		<h4 class="tab-title">Edit / Delete</h4>
-		<div class="row">
-			<div class="col-sm-6">
-				<p>Roles:</p>
-				<ul class="list-unstyled">
-
-					<li class="acl-role-container slide-right" ng-repeat="defaultRole in rolesAndPermissions">
-						<div class="clearfix display-table">
-							<div class="table-cell cell-id">#{{defaultRole.id}}</div>
-							<div class="table-cell cell-name">{{defaultRole.name}}</div>
-							<div class="table-cell cell-label">{{defaultRole.label}}</div>
-							<div class="table-cell cell-actions">
-								<div class="btn-group btn-group-justified" role="group">
-									<div class="btn-group">
-										<a class="btn btn-sm btn-default" data-target="#rlid-{{defaultRole.id}}" data-toggle="collapse">
-											<i class="fa fa-edit"></i>
-										</a>
-									</div>
-									<div class="btn-group">
-										<a ng-click="destroyRole(defaultRole)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="rlid-{{defaultRole.id}}" class="acl-role-edit-container collapse">
-							<input type="hidden" ng-value="defaultRole.id"/>
-							<input ng-model="defaultRole.name" type="text" class="form-control" ng-value="defaultRole.name"/>
-							<input ng-model="defaultRole.label" type="text" class="form-control" ng-value="defaultRole.label"/>
-							<a class="btn btn-sm btn-default" ng-click="">Update</a>
-						</div>
-					</li>
-
-				</ul>
-
-
-			</div>
-			<div class="col-sm-6">
-				Permissions:
-				<ul class="list-unstyled">
-
-					<li class="acl-permission-container slide-right" ng-repeat="dPerm in permissionsDefaults">
-						<div class="clearfix display-table">
-							<div class="table-cell cell-id">#{{dPerm.id}}</div>
-							<div class="table-cell cell-name">{{dPerm.name}}</div>
-							<div class="table-cell cell-label">{{dPerm.label}}</div>
-							<div class="table-cell cell-actions">
-								<div class="btn-group btn-group-justified" role="group">
-									<div class="btn-group">
-										<a class="btn btn-sm btn-default" data-target="#perm_id-{{dPerm.id}}" data-toggle="collapse">
-											<i class="fa fa-edit"></i>
-										</a>
-									</div>
-									<div class="btn-group">
-										<a ng-click="destroyPermission(dPerm)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="perm_id-{{dPerm.id}}" class="acl-role-edit-container collapse">
-							<input type="hidden" ng-value="dPerm.id"/>
-							<input ng-model="dPerm.name" type="text" class="form-control" ng-value="dPerm.name"/>
-							<input ng-model="dPerm.label" type="text" class="form-control" ng-value="dPerm.label"/>
-							<a class="btn btn-sm btn-default" ng-click="">Update</a>
-						</div>
-					</li>
-
-
-				</ul>
-			</div>
-		</div>
-	</div>
 </form>
 
+<div class="clearfix">
+	<hr>
+	<h4 class="tab-title">Edit / Delete</h4>
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Roles:</p>
+			<ul class="list-unstyled">
+
+				<li class="acl-role-container slide-right" ng-repeat="defaultRole in rolesAndPermissions">
+					<div class="clearfix display-table">
+						<div class="table-cell cell-id">#{{defaultRole.id}}</div>
+						<div class="table-cell cell-name">{{defaultRole.name}}</div>
+						<div class="table-cell cell-label">{{defaultRole.label}}</div>
+						<div class="table-cell cell-actions">
+							<div class="btn-group btn-group-justified" role="group">
+								<div class="btn-group">
+									<a class="btn btn-sm btn-default" data-target="#rlid-{{defaultRole.id}}" data-toggle="collapse">
+										<i class="fa fa-edit"></i>
+									</a>
+								</div>
+								<div class="btn-group">
+									<a ng-click="destroyRole(defaultRole)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="rlid-{{defaultRole.id}}" class="acl-role-edit-container collapse">
+						<div class="row">
+							<div class="col-xs-6">
+								<input ng-model="defaultRole.name" type="text" class="form-control" ng-value="defaultRole.name"/>
+							</div>
+							<div class="col-xs-6">
+								<input ng-model="defaultRole.label" type="text" class="form-control" ng-value="defaultRole.label"/>
+							</div>
+						</div>
+						<div class="clearfix s2-select-tags-wrap">
+							<select class="form-control s2-select-tags" multiple
+											ng-model="defaultRole.permissions"
+											ng-options="opt.label for opt in permissionsDefaults track by opt.name"></select>
+						</div>
+
+						<a class="btn btn-sm btn-default" ng-click="editRolePermission(defaultRole, 'role')">Update</a>
+					</div>
+				</li>
+
+			</ul>
+
+
+		</div>
+		<div class="col-sm-6">
+			Permissions:
+			<ul class="list-unstyled">
+
+				<li class="acl-permission-container slide-right" ng-repeat="dPerm in permissionsDefaults">
+					<div class="clearfix display-table">
+						<div class="table-cell cell-id">#{{dPerm.id}}</div>
+						<div class="table-cell cell-name">{{dPerm.name}}</div>
+						<div class="table-cell cell-label">{{dPerm.label}}</div>
+						<div class="table-cell cell-actions">
+							<div class="btn-group btn-group-justified" role="group">
+								<div class="btn-group">
+									<a class="btn btn-sm btn-default" data-target="#perm_id-{{dPerm.id}}" data-toggle="collapse">
+										<i class="fa fa-edit"></i>
+									</a>
+								</div>
+								<div class="btn-group">
+									<a ng-click="destroyPermission(dPerm)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="perm_id-{{dPerm.id}}" class="acl-role-edit-container collapse">
+						<input type="hidden" ng-value="dPerm.id"/>
+						<input ng-model="dPerm.name" type="text" class="form-control" ng-value="dPerm.name"/>
+						<input ng-model="dPerm.label" type="text" class="form-control" ng-value="dPerm.label"/>
+						<a class="btn btn-sm btn-default" ng-click="editRolePermission(dPerm, 'permission')">Update</a>
+					</div>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>

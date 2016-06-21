@@ -270,4 +270,13 @@ a.btn {
 	&.btn-danger {
 		color : #fff !important;
 	}
+	&.btn-sm {
+		padding : 3px 10px;
+	}
+}
+
+.s2-select-tags-wrap {
+	> * {
+		width : 100% !important;
+	}
 }
